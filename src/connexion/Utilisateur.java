@@ -17,7 +17,7 @@ public class Utilisateur {
 	private boolean connexion = false;
 	private  HashMap<String, Integer> listErreur = new HashMap<String, Integer>();
 
-	public HashMap<String, Integer> ajouterUtilisateur(HashMap<String, String> listDonneeUser) throws Exception {
+	public void ajouterUtilisateur(HashMap<String, String> listDonneeUser) throws Exception {
 
 		for (Map.Entry mapentry : listDonneeUser.entrySet()) {
 			System.out.println("clé: " + mapentry.getKey() + " | valeur: " + mapentry.getValue());
@@ -32,8 +32,6 @@ public class Utilisateur {
 		} else {
 			throw new Exception("User incorrecte");
 		}
-		return listErreur;
-
 	}
 
 	private boolean verifierDonnees(HashMap<String, String> listDonneeUser) {
@@ -43,15 +41,15 @@ public class Utilisateur {
 			listErreur.put("pseudo", 1);
 			retour = false;
 		}
-		else if(listDonneeUser.get("email").equals("") | !emailValide(listDonneeUser.get("email"))) {
+		if(listDonneeUser.get("email").equals("") | !emailValide(listDonneeUser.get("email"))) {
 			listErreur.put("email", 1);
 			retour = false;
 		}
-		else if(listDonneeUser.get("mdp").equals("") | !mdpValide(listDonneeUser.get("mdp"))) {
+		if(listDonneeUser.get("mdp").equals("") | !mdpValide(listDonneeUser.get("mdp"))) {
 			listErreur.put("mdp", 1);
 			retour = false;
 		}
-		System.out.println(retour);
+		//System.out.println(retour);
 		return retour;
 	}
 
@@ -65,6 +63,20 @@ public class Utilisateur {
 		Pattern p = Pattern.compile("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[&#-+!*$@%_])([&#-+!*$@%_\\w]{8,15})$");
 		Matcher m = p.matcher(mdp);
 		return m.matches();
+	}
+
+	/**
+	 * @return the listErreur
+	 */
+	public HashMap<String, Integer> getListErreur() {
+		return listErreur;
+	}
+
+	/**
+	 * @param listErreur the listErreur to set
+	 */
+	public void setListErreur(HashMap<String, Integer> listErreur) {
+		this.listErreur = listErreur;
 	}
 
 	/**

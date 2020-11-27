@@ -22,9 +22,9 @@ public class Maintest {
 			user.ajouterUtilisateur(listDonneeUser);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(user.getListErreur());
 		}
-
+		System.out.println(user.getListErreur());
 	}
 
 }
