@@ -1,4 +1,4 @@
-package connexion;
+package utilisateur;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +20,7 @@ public class Utilisateur {
 	public void ajouterUtilisateur(HashMap<String, String> listDonneeUser) throws Exception {
 
 		for (Map.Entry mapentry : listDonneeUser.entrySet()) {
-			System.out.println("clé: " + mapentry.getKey() + " | valeur: " + mapentry.getValue());
+			System.out.println("clï¿½: " + mapentry.getKey() + " | valeur: " + mapentry.getValue());
 		}
 		if(this.verifierDonnees(listDonneeUser)) {
 			setPseudo(listDonneeUser.get("pseudo"));

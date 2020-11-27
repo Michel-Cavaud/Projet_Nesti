@@ -1,4 +1,4 @@
-package connexion;
+package utilisateur;
 
 import java.util.HashMap;
 

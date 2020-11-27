@@ -1,4 +1,4 @@
-package connexion;
+package utilisateur;
 
 import java.util.HashMap;
 
@@ -18,7 +18,7 @@ public class UtilisateurTest extends TestCase {
 		listDonneeUser.put("email", "");
 		try {
 			user.ajouterUtilisateur(listDonneeUser);
-			fail("Erreur non détectée : mail absent");
+			fail("Erreur non dï¿½tectï¿½e : mail absent");
 		} catch (Exception e) {
 			// erreur attendue
 		}
@@ -28,7 +28,7 @@ public class UtilisateurTest extends TestCase {
 		listDonneeUser.put("pseudo", "");
 		try {
 			user.ajouterUtilisateur(listDonneeUser);
-			fail("Erreur non détectée : pseudo absent");
+			fail("Erreur non dï¿½tectï¿½e : pseudo absent");
 		} catch (Exception e) {
 			// erreur attendue
 		}
@@ -37,17 +37,17 @@ public class UtilisateurTest extends TestCase {
 		listDonneeUser.put("email", "");
 		try {
 			user.ajouterUtilisateur(listDonneeUser);
-			fail("Erreur non détectée : pseudo et mail absent");
+			fail("Erreur non dï¿½tectï¿½e : pseudo et mail absent");
 		} catch (Exception e) {
 			// erreur attendue
 		}
 
-		// ajouter user avec mail erroné
+		// ajouter user avec mail erronï¿½
 		listDonneeUser.put("pseudo", "monpseudo");
 		listDonneeUser.put("email", "sfsffdfdf.fg");
 		try {
 			user.ajouterUtilisateur(listDonneeUser);
-			fail("Erreur non détectée : mail absent");
+			fail("Erreur non dï¿½tectï¿½e : mail absent");
 		} catch (Exception e) {
 			// erreur attendue
 		}
@@ -57,7 +57,7 @@ public class UtilisateurTest extends TestCase {
 		listDonneeUser.put("mdp", "");
 		try {
 			user.ajouterUtilisateur(listDonneeUser);
-			fail("Erreur non détectée : mdp absent");
+			fail("Erreur non dï¿½tectï¿½e : mdp absent");
 		} catch (Exception e) {
 			// erreur attendue
 		}
@@ -66,7 +66,7 @@ public class UtilisateurTest extends TestCase {
 		listDonneeUser.put("mdp", "monmdp&30");
 		try {
 			user.ajouterUtilisateur(listDonneeUser);
-			fail("Erreur non détectée : mdp absent");
+			fail("Erreur non dï¿½tectï¿½e : mdp absent");
 		} catch (Exception e) {
 			// erreur attendue
 		}
