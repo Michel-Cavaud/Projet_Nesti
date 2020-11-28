@@ -1,12 +1,18 @@
 package utilisateur;
 
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import jbcrypt.BCrypt;
+
+
+
 public class Utilisateur {
 
+	private Integer id = 8;
 	private String pseudo;
 	private String email;
 	private String mdp;
@@ -16,11 +22,13 @@ public class Utilisateur {
 
 	private boolean connexion = false;
 	private  HashMap<String, Integer> listErreur = new HashMap<String, Integer>();
+	
+	private RequetesSQL requetesSQL = new RequetesSQL("163.172.232.206", "michel", "sqlmichel", "nesti");
 
-	public void ajouterUtilisateur(HashMap<String, String> listDonneeUser) throws Exception {
+	public void ajouterModifierUtilisateur(HashMap<String, String> listDonneeUser) throws Exception {
 
 		for (Map.Entry mapentry : listDonneeUser.entrySet()) {
-			System.out.println("cl�: " + mapentry.getKey() + " | valeur: " + mapentry.getValue());
+			System.out.println("clé: " + mapentry.getKey() + " | valeur: " + mapentry.getValue());
 		}
 		if(this.verifierDonnees(listDonneeUser)) {
 			setPseudo(listDonneeUser.get("pseudo"));
@@ -28,10 +36,56 @@ public class Utilisateur {
 			setMdp(listDonneeUser.get("mdp"));
 			setNom(listDonneeUser.get("nom"));
 			setPrenom(listDonneeUser.get("prenom"));
-			setVille(listDonneeUser.get("ville"));
+			setVille(listDonneeUser.get("ville"));	
 		} else {
+			//listErreur.put("user", 1);
 			throw new Exception("User incorrecte");
 		}
+	}
+	
+	
+	public void creerUpdateUserSql() throws Exception {
+		try {
+			requetesSQL.openConnection();
+		} catch (Exception e) {
+			throw new Exception("connexion impossible");
+		}
+		System.out.println(getId());
+		if(getId() == null) {
+			try {
+				if(RequetesSQL.doublonUser(this)) {
+					RequetesSQL.insertUtilisateur(this);
+				}else {
+					listErreur.put("doublon", 1);
+					throw new Exception("doublon user");
+				}
+				
+			} catch (Exception e) {
+				throw new Exception("création impossible");
+			}
+		}else{
+			try {		
+				RequetesSQL.updateUtilisateur(this);
+			} catch (Exception e) {
+				throw new Exception("création impossible");
+			}
+		}
+		
+		try {
+			requetesSQL.closeConnection();
+		} catch (Exception e) {
+			throw new Exception("close impossible");
+		}
+	}
+	
+	public String[] getInfoUserTabCrypte(){
+		String[] tableau = {getPseudo(), getEmail(), BCrypt.hashpw(getMdp(), BCrypt.gensalt()), getNom(), getPrenom(), getVille()};
+		return tableau;
+	}
+	
+	public String[] getInfoUserTab(){
+		String[] tableau = {getPseudo(), getEmail(), getMdp(), getNom(), getPrenom(), getVille()};
+		return tableau;
 	}
 
 	private boolean verifierDonnees(HashMap<String, String> listDonneeUser) {
@@ -65,6 +119,13 @@ public class Utilisateur {
 		return m.matches();
 	}
 
+	/*if (BCrypt.checkpw(candidate, hashed))
+		System.out.println("It matches");
+	else
+		System.out.println("It does not match");*/
+	
+	
+	
 	/**
 	 * @return the listErreur
 	 */
@@ -73,10 +134,26 @@ public class Utilisateur {
 	}
 
 	/**
+	 * @return the id
+	 */
+	public Integer getId() {
+		return id;
+	}
+
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
+	/**
 	 * @param listErreur the listErreur to set
 	 */
-	public void setListErreur(HashMap<String, Integer> listErreur) {
-		this.listErreur = listErreur;
+	public void setListErreur(String key, int val) {
+		this.listErreur.put(key, val);
 	}
 
 	/**
@@ -176,5 +253,7 @@ public class Utilisateur {
 	public void setVille(String ville) {
 		this.ville = ville;
 	}
+
+	
 
 }

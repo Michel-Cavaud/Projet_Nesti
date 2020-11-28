@@ -12,12 +12,12 @@ public class UtilisateurTest extends TestCase {
 	public void testajouterUtilisateur() throws Exception {
 
 		// ajouter un user avec bonne information
-		user.ajouterUtilisateur(listDonneeUser);
+		user.ajouterModifierUtilisateur(listDonneeUser);
 
 		// ajouter user sans email
 		listDonneeUser.put("email", "");
 		try {
-			user.ajouterUtilisateur(listDonneeUser);
+			user.ajouterModifierUtilisateur(listDonneeUser);
 			fail("Erreur non d�tect�e : mail absent");
 		} catch (Exception e) {
 			// erreur attendue
@@ -27,7 +27,7 @@ public class UtilisateurTest extends TestCase {
 		listDonneeUser.put("email", "monemain@mail.com");
 		listDonneeUser.put("pseudo", "");
 		try {
-			user.ajouterUtilisateur(listDonneeUser);
+			user.ajouterModifierUtilisateur(listDonneeUser);
 			fail("Erreur non d�tect�e : pseudo absent");
 		} catch (Exception e) {
 			// erreur attendue
@@ -36,7 +36,7 @@ public class UtilisateurTest extends TestCase {
 		listDonneeUser.put("pseudo", "");
 		listDonneeUser.put("email", "");
 		try {
-			user.ajouterUtilisateur(listDonneeUser);
+			user.ajouterModifierUtilisateur(listDonneeUser);
 			fail("Erreur non d�tect�e : pseudo et mail absent");
 		} catch (Exception e) {
 			// erreur attendue
@@ -46,7 +46,7 @@ public class UtilisateurTest extends TestCase {
 		listDonneeUser.put("pseudo", "monpseudo");
 		listDonneeUser.put("email", "sfsffdfdf.fg");
 		try {
-			user.ajouterUtilisateur(listDonneeUser);
+			user.ajouterModifierUtilisateur(listDonneeUser);
 			fail("Erreur non d�tect�e : mail absent");
 		} catch (Exception e) {
 			// erreur attendue
@@ -56,7 +56,7 @@ public class UtilisateurTest extends TestCase {
 		listDonneeUser.put("email", "sfsf@fdfdf.fg");
 		listDonneeUser.put("mdp", "");
 		try {
-			user.ajouterUtilisateur(listDonneeUser);
+			user.ajouterModifierUtilisateur(listDonneeUser);
 			fail("Erreur non d�tect�e : mdp absent");
 		} catch (Exception e) {
 			// erreur attendue
@@ -65,7 +65,7 @@ public class UtilisateurTest extends TestCase {
 		// ajouter user avec mot de passe faible
 		listDonneeUser.put("mdp", "monmdp&30");
 		try {
-			user.ajouterUtilisateur(listDonneeUser);
+			user.ajouterModifierUtilisateur(listDonneeUser);
 			fail("Erreur non d�tect�e : mdp absent");
 		} catch (Exception e) {
 			// erreur attendue
