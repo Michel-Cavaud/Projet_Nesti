@@ -253,6 +253,12 @@ public class FrameConnexion {
 		creerCompte.setHorizontalAlignment(SwingConstants.CENTER);
 		creerCompte.setBounds(0, 443, 380, 32);
 		creerCompte.setForeground(new Color(98, 129, 159));
+		creerCompte.addMouseListener(new MouseAdapter() {
+
+			public void mouseClicked(MouseEvent e) {
+				frmConnexion.dispose();
+			}
+		});
 		panel_connexion.add(creerCompte);
 
 		
