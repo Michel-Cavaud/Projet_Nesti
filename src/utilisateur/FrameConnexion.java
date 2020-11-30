@@ -23,6 +23,8 @@ import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.Frame;
 import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
+
 import java.awt.Toolkit;
 
 public class FrameConnexion {
@@ -64,7 +66,7 @@ public class FrameConnexion {
 				Toolkit.getDefaultToolkit().getImage(FrameConnexion.class.getResource("/utilisateur/images/user.png")));
 		frmConnexion.getContentPane().setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		frmConnexion.setResizable(false);
-		frmConnexion.setBounds(100, 100, 380, 597);
+		frmConnexion.setBounds(100, 100, 380, 440);
 		frmConnexion.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmConnexion.getContentPane().setLayout(null);
 		frmConnexion.setUndecorated(true);
@@ -72,7 +74,7 @@ public class FrameConnexion {
 		
 
 		JPanel panel_principal = new JPanel();
-		panel_principal.setBounds(0, 0, 381, 597);
+		panel_principal.setBounds(0, 0, 381, 440);
 		panel_principal.setBackground(new Color(194, 194, 194));
 		frmConnexion.getContentPane().add(panel_principal);
 
@@ -136,14 +138,14 @@ public class FrameConnexion {
 		panel_connexion.add(lblNewLabel_1);
 		
 		
-		BlockInput pseudo = new BlockInput(false, "Pseudo ou Email", "user", 88);
+		BlockInput pseudo = new BlockInput(false, "Pseudo ou Email", "user", 80);
 		panel_connexion.add(pseudo.getBlock_1());
 		panel_connexion.add(pseudo.getBlock_2());
 		panel_connexion.add(pseudo.getBlock_3());
 		panel_connexion.add(pseudo.getBlock_4());
 		listInput.put("pseudo", pseudo.getBlock_3());
 		
-		BlockInput mdp = new BlockInput(true, "Mot de passe", "mdp", 188);
+		BlockInput mdp = new BlockInput(true, "Mot de passe", "mdp", 150);
 		panel_connexion.add(mdp.getBlock_1());
 		panel_connexion.add(mdp.getBlock_2());
 		panel_connexion.add(mdp.getBlock_3p());
@@ -153,10 +155,11 @@ public class FrameConnexion {
 
 		JLabel message = new JLabel("");
 		message.setHorizontalAlignment(SwingConstants.CENTER);
-		message.setVisible(false);
+		//message.setVisible(false);
+		message.setBorder(new LineBorder(Color.RED));
 		message.setInheritsPopupMenu(false);
 		message.setFont(new Font("Tempus Sans ITC", Font.BOLD, 20));
-		message.setBounds(0, 287, 380, 32);
+		message.setBounds(0, 240, 380, 32);
 		panel_connexion.add(message);
 
 		JLabel lblNewLabel_8 = new JLabel("CONNEXION");
@@ -164,7 +167,7 @@ public class FrameConnexion {
 		lblNewLabel_8.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_8.setFont(new Font("Tempus Sans ITC", Font.BOLD, 30));
 		lblNewLabel_8.setForeground(Color.BLACK);
-		lblNewLabel_8.setBounds(0, 349, 380, 48);
+		lblNewLabel_8.setBounds(0, 300, 380, 48);
 		lblNewLabel_8.addMouseListener(new MouseAdapter() {
 
 			public void mouseClicked(MouseEvent e) {
@@ -176,7 +179,7 @@ public class FrameConnexion {
 		JLabel lblNewLabel_9 = new JLabel();
 		lblNewLabel_9.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_9.setBorder(null);
-		lblNewLabel_9.setBounds(0, 349, 380, 48);
+		lblNewLabel_9.setBounds(0, 300, 380, 48);
 		img = null;
 		try {
 			img = ImageIO.read(getClass().getResource("./images/bouton.png"));
@@ -189,19 +192,33 @@ public class FrameConnexion {
 
 		JLabel creerCompte = new JLabel("Créer votre compte");
 		creerCompte.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		creerCompte.setFont(new Font("Tempus Sans ITC", Font.BOLD, 25));
+		creerCompte.setFont(new Font("Tempus Sans ITC", Font.BOLD, 20));
 		creerCompte.setHorizontalAlignment(SwingConstants.CENTER);
-		creerCompte.setBounds(0, 443, 380, 32);
+		creerCompte.setBounds(0, 350, 380, 32);
 		creerCompte.setForeground(new Color(98, 129, 159));
 		creerCompte.addMouseListener(new MouseAdapter() {
 
 			public void mouseClicked(MouseEvent e) {
 				frmConnexion.dispose();
+				new FrameCreerCompte().getFrmCreerCompte().setVisible(true);
+				
 			}
 		});
 		panel_connexion.add(creerCompte);
-
-		
-
 	}
+
+	/**
+	 * @return the frmConnexion
+	 */
+	public JFrame getFrmConnexion() {
+		return frmConnexion;
+	}
+
+	/**
+	 * @param frmConnexion the frmConnexion to set
+	 */
+	public void setFrmConnexion(JFrame frmConnexion) {
+		this.frmConnexion = frmConnexion;
+	}
+	
 }

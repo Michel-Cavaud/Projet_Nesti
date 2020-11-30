@@ -2,17 +2,15 @@ package utilisateur;
 
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import jbcrypt.BCrypt;
 
 
 
 public class Utilisateur {
 
-	private Integer id = 8;
+	private Integer id = null;
 	private String pseudo;
 	private String email;
 	private String mdp;
@@ -27,9 +25,10 @@ public class Utilisateur {
 
 	public void ajouterModifierUtilisateur(HashMap<String, String> listDonneeUser) throws Exception {
 
-		for (Map.Entry mapentry : listDonneeUser.entrySet()) {
+		/*for (Map.Entry mapentry : listDonneeUser.entrySet()) {
 			System.out.println("clé: " + mapentry.getKey() + " | valeur: " + mapentry.getValue());
-		}
+		}*/
+		
 		if(this.verifierDonnees(listDonneeUser)) {
 			setPseudo(listDonneeUser.get("pseudo"));
 			setEmail(listDonneeUser.get("email"));
@@ -45,16 +44,15 @@ public class Utilisateur {
 	
 	
 	public void creerUpdateUserSql() throws Exception {
-		try {
-			requetesSQL.openConnection();
-		} catch (Exception e) {
-			throw new Exception("connexion impossible");
-		}
-		System.out.println(getId());
+			try {
+				requetesSQL.openConnection();
+			} catch (Exception e) {
+				throw new Exception("connexion impossible");
+			}
 		if(getId() == null) {
 			try {
-				if(RequetesSQL.doublonUser(this)) {
-					RequetesSQL.insertUtilisateur(this);
+				if(requetesSQL.doublonUser(this)) {
+					requetesSQL.insertUtilisateur(this);
 				}else {
 					listErreur.put("doublon", 1);
 					throw new Exception("doublon user");
@@ -65,7 +63,7 @@ public class Utilisateur {
 			}
 		}else{
 			try {		
-				RequetesSQL.updateUtilisateur(this);
+				requetesSQL.updateUtilisateur(this);
 			} catch (Exception e) {
 				throw new Exception("création impossible");
 			}

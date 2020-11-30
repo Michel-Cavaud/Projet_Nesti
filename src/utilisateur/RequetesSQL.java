@@ -12,7 +12,7 @@ public class RequetesSQL extends ConnexionSQL {
 
 	}
 	
-	public static boolean insertUtilisateur(Utilisateur user) throws Exception{
+	public boolean insertUtilisateur(Utilisateur user) throws Exception{
 		boolean flag = false;
 		try {
 			String query = "INSERT INTO utilisateurs (pseudo, email, mdp, nom, prenom, ville) VALUES (?, ?, ?, ?, ?, ?)";
@@ -33,7 +33,7 @@ public class RequetesSQL extends ConnexionSQL {
 		return flag;
 	}
 	
-	public static boolean updateUtilisateur(Utilisateur user) throws Exception{
+	public  boolean updateUtilisateur(Utilisateur user) throws Exception{
 		boolean flag = false;
 		try {
 			String query = "UPDATE utilisateurs SET pseudo = ?, email = ?, mdp = ?, nom = ?, prenom = ?, ville = ? WHERE id_utilisateur = ?";
@@ -55,7 +55,7 @@ public class RequetesSQL extends ConnexionSQL {
 		
 	}
 	
-	public static boolean doublonUser(Utilisateur user) throws Exception{
+	public  boolean doublonUser(Utilisateur user) throws Exception{
 		boolean flag = true;
 		try {
 			Statement declaration = accessDataBase.createStatement();

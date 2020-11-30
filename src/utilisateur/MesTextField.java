@@ -20,7 +20,7 @@ public class MesTextField extends JTextField{
 		
 		this.setFont(new Font("Tempus Sans ITC", Font.BOLD, 20));
 		this.setForeground(new Color(98, 129, 159));
-		this.setBounds(getPos(), getPos1(), 230, 30);
+		this.setBounds(getPos(), getPos1(), 230, 28);
 		this.setColumns(10);
 		this.setBorder(null);
 		

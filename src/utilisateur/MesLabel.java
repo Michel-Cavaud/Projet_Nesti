@@ -28,9 +28,9 @@ public class MesLabel extends JLabel{
 		setPos1(pos1);
 		
 		this.setText(getTexte());
-		this.setFont(new Font("Tempus Sans ITC", Font.BOLD, 25));
+		this.setFont(new Font("Tempus Sans ITC", Font.BOLD, 18));
 		this.setForeground(new Color(98, 129, 159));
-		this.setBounds(getPos(), getPos1(), 250, 38);
+		this.setBounds(getPos(), getPos1(), 250, 45);
 		
 		if (getImg() != null) {
 			try {

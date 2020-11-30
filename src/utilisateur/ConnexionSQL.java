@@ -19,12 +19,12 @@ public class ConnexionSQL  {
 	}
 	
 	public void openConnection() throws Exception {
-		
-		try {
-			accessDataBase = DriverManager.getConnection(getUrl(), getLogin(), getMdp());
-		} catch (SQLException ex) {
-			throw new Exception("Erreur connexion");
-
+		if(!testConnection()) {
+			try {
+				accessDataBase = DriverManager.getConnection(getUrl(), getLogin(), getMdp());
+			} catch (SQLException ex) {
+				throw new Exception("Erreur connexion");
+			}
 		}
 	}
 	

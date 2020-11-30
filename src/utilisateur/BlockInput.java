@@ -19,15 +19,15 @@ public class BlockInput {
 		
 		setBlock_1(new MesLabel(getTexte(), null, 44, getPos1()));
 		
-		setBlock_2(new MesLabel("", getImg(), 44, getPos1() + 42));
+		setBlock_2(new MesLabel("", getImg(), 44, getPos1() + 28));
 		
 		if(password == true) {
-			setBlock_3p(new MesPasswordField(88, getPos1() + 42));
+			setBlock_3p(new MesPasswordField(88, getPos1() + 39));
 		}else {
-			setBlock_3(new MesTextField(88, getPos1() + 42));
+			setBlock_3(new MesTextField(88, getPos1() + 39));
 		}
 		
-		setBlock_4(new MesLabel("", "input" , 80, getPos1() + 38));
+		setBlock_4(new MesLabel("", "input" , 78, getPos1() + 30));
 	}
 	
 	
