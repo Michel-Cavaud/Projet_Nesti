@@ -1,6 +1,7 @@
 package utilisateur;
 
 
+import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -103,6 +104,40 @@ public class Utilisateur {
 		}
 		//System.out.println(retour);
 		return retour;
+	}
+	
+	public Utilisateur chercherUser(String pseudo, String mdp) throws Exception {
+		try {
+			requetesSQL.openConnection();
+		} catch (Exception e) {
+			throw new Exception("connexion impossible");
+		}
+	
+		ResultSet resultat = requetesSQL.selectUsers();
+		
+		while (resultat.next()) {
+			// & pseudo.equals(resultat.getString("pseudo")) | pseudo.equals(resultat.getString("email"))
+			if(BCrypt.checkpw(mdp, resultat.getString("mdp")) & pseudo.equals(resultat.getString("pseudo")) | pseudo.equals(resultat.getString("email"))) {
+				HashMap<String, String> listDonneeUser = new HashMap<String, String>();
+				
+				listDonneeUser.put("pseudo", resultat.getString("pseudo"));
+				listDonneeUser.put("email", resultat.getString("email"));
+				listDonneeUser.put("mdp", mdp);
+				listDonneeUser.put("nom", resultat.getString("nom"));
+				listDonneeUser.put("prenom", resultat.getString("prenom"));
+				listDonneeUser.put("ville", resultat.getString("ville"));
+				this.ajouterModifierUtilisateur(listDonneeUser);
+				setId(resultat.getInt("id_utilisateur"));
+				
+				return this;
+			}
+		}
+		try {
+			requetesSQL.closeConnection();
+		} catch (Exception e) {
+			throw new Exception("close impossible");
+		}
+		return null;
 	}
 
 	public static boolean emailValide(String email) {

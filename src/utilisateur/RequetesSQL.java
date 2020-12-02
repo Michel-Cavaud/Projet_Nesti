@@ -68,8 +68,19 @@ public class RequetesSQL extends ConnexionSQL {
 			throw new Exception("Erreur doublon");
 		}
 		return flag;
-		
-		
+	}
+	
+	public ResultSet selectUsers() {
+		ResultSet resultat = null;
+		try {
+			Statement declaration = accessDataBase.createStatement();
+			String query = "SELECT * FROM utilisateurs;";
+			resultat = declaration.executeQuery(query);
+		} catch (Exception e) {
+			System.err.println("Erreur d'affichage d'ing: " + e.getMessage());
+		}
+		return resultat;
+
 	}
 }
 

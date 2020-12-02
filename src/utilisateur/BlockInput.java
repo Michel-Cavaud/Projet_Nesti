@@ -4,6 +4,7 @@ package utilisateur;
 public class BlockInput {
 	
 	private String texte;
+	private int pos;
 	private int pos1;
 	private String img;
 	private MesLabel block_1;
@@ -12,25 +13,42 @@ public class BlockInput {
 	private MesTextField block_3;
 	private MesLabel block_4;
 	
-	public BlockInput(boolean password, String texte, String img, int pos1) {
+	public BlockInput(boolean password, String texte, String img, int pos, int pos1) {
 		setTexte(texte);
 		setImg(img);
 		setPos1(pos1);
+		setPos(pos);
 		
-		setBlock_1(new MesLabel(getTexte(), null, 44, getPos1()));
+		setBlock_1(new MesLabel(getTexte(), null, getPos(), getPos1()));
 		
-		setBlock_2(new MesLabel("", getImg(), 44, getPos1() + 28));
+		setBlock_2(new MesLabel("", getImg(), getPos(), getPos1() + 28));
 		
 		if(password == true) {
-			setBlock_3p(new MesPasswordField(88, getPos1() + 39));
+			setBlock_3p(new MesPasswordField(getPos() + 44, getPos1() + 39));
 		}else {
-			setBlock_3(new MesTextField(88, getPos1() + 39));
+			setBlock_3(new MesTextField(getPos() + 44, getPos1() + 39));
 		}
 		
-		setBlock_4(new MesLabel("", "input" , 78, getPos1() + 30));
+		setBlock_4(new MesLabel("", "input" , getPos() + 32, getPos1() + 30));
 	}
 	
 	
+	/**
+	 * @return the pos
+	 */
+	public int getPos() {
+		return pos;
+	}
+
+
+	/**
+	 * @param pos the pos to set
+	 */
+	public void setPos(int pos) {
+		this.pos = pos;
+	}
+
+
 	/**
 	 * @return the block_1
 	 */

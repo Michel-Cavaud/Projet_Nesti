@@ -2,7 +2,6 @@ package utilisateur;
 
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Frame;
 import java.awt.Image;
@@ -12,7 +11,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,14 +32,19 @@ public class FrameCreerCompte {
 	JPanel panel_inscription;
 	JPanel panel_principal;
 	JLabel message;
+	JLabel lblNewLabel_1;
+	JLabel lblNewLabel_8;
+	JLabel creerCompte;
+	
 	private int posX = 0;  
     private int posY = 0;
+   
 	private HashMap<String, JTextField> listInput = new HashMap<String, JTextField>();
 	private String[] input = {"email", "pseudo", "mdp", "mdp1", "nom", "prenom", "ville"};
 	private String[] texteInput = {"Votre email*", "Votre pseudo*", "Mot de passe*", "Confirmer MDP*", "Votre Nom", "Votre prénom", "Votre ville"};
 	private String[] imgInput = {"email", "user", "mdp", "mdp", "user", "user", "ville"};
 	private boolean[] password = {false, false, true, true, false, false, false};
-	private int[] pos = {30, 100, 170, 240, 310, 380, 450};
+	private int[] pos = {30, 100, 170, 240, 30, 100, 170};
 	
 	Utilisateur user;
 	
@@ -49,7 +52,7 @@ public class FrameCreerCompte {
 	
 	/**
 	 * Launch the application.
-	 */
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -61,12 +64,13 @@ public class FrameCreerCompte {
 				}
 			}
 		});
-	}
+	} */
 
 	/**
 	 * Create the application.
 	 */
-	public FrameCreerCompte() {
+	public FrameCreerCompte(Utilisateur user) {
+		setUser(user);
 		initialize();
 		titrePrincipal();
 		iconifie();
@@ -77,44 +81,33 @@ public class FrameCreerCompte {
 		message();
 		boutonSubmit();
 		lien();
+		if(getUser()!= null) {
+			passageEnVisu();
+		}
 	}
+
+	
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
+		
 		frmCreerCompte = new JFrame();
 		frmCreerCompte.setTitle("Connexion");
 		frmCreerCompte.setIconImage(Toolkit.getDefaultToolkit().getImage(FrameConnexion.class.getResource("/utilisateur/images/user.png")));
-		//frmCreerCompte.getContentPane().setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-		//frmCreerCompte.setResizable(false);
-		frmCreerCompte.setSize(380, 735);
+		frmCreerCompte.setSize(660, 540);
 		frmCreerCompte.getContentPane().setLayout(null);
 		frmCreerCompte.setUndecorated(true);
 		frmCreerCompte.setLocationRelativeTo(null);
 		
-		frmCreerCompte.addMouseListener(new MouseAdapter() {
-            @Override
-            //on recupere les coordonnées de la souris
-            public void mousePressed(MouseEvent e) {
-                posX = e.getX();    //Position X de la souris au clic
-                posY = e.getY();    //Position Y de la souris au clic
-            }
-        });
-         
-		frmCreerCompte.addMouseMotionListener(new MouseMotionAdapter() {
-            // A chaque deplacement on recalcul le positionnement de la fenetre
-            @Override
-            public void mouseDragged(MouseEvent e) {
-                int depX = e.getX() + posX;
-                int depY = e.getY() + posY;
-                frmCreerCompte.setLocation(depX, depY);
-            }
-        });
+		
 		
 		panel_principal = new JPanel();
-		panel_principal.setBounds(0, 0, 380, 735);
+		panel_principal.setBounds(0, 0, 660, 540);
 		panel_principal.setBackground(new Color(194, 194, 194));
+		panel_principal.setLayout(null);
 		frmCreerCompte.getContentPane().add(panel_principal);
 	}
 	
@@ -129,7 +122,7 @@ public class FrameCreerCompte {
 		sortir.setRequestFocusEnabled(false);
 		sortir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		sortir.setMargin(new Insets(0, 0, 0, 0));
-		sortir.setBounds(340, 11, 31, 31);
+		sortir.setBounds(620, 11, 31, 31);
 		sortir.setBackground(new Color(194, 194, 194));
 		img = null;
 		try {
@@ -138,7 +131,7 @@ public class FrameCreerCompte {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		panel_principal.setLayout(null);
+		
 		panel_principal.add(sortir);
 	}
 	
@@ -154,13 +147,13 @@ public class FrameCreerCompte {
 				frmCreerCompte.setState(Frame.ICONIFIED);
 			}
 		});
-		reduit.setBounds(287, 11, 43, 31);
+		reduit.setBounds(567, 11, 43, 31);
 		panel_principal.add(reduit);
 	}
 	
 	private void titrePrincipal() {
 		JLabel lblNewLabel = new JLabel("NESTI");
-		lblNewLabel.setBounds(73, 10, 219, 40);
+		lblNewLabel.setBounds(85, 10, 499, 40);
 		panel_principal.add(lblNewLabel);
 		lblNewLabel.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		lblNewLabel.setForeground(new Color(98, 129, 159));
@@ -172,21 +165,27 @@ public class FrameCreerCompte {
 		panel_inscription = new JPanel();
 		panel_inscription.setBackground(new Color(194, 194, 194));
 		panel_inscription.setBorder(null);
-		panel_inscription.setBounds(0, 53, 380, 758);
+		panel_inscription.setBounds(0, 53, 660, 540);
 		panel_inscription.setLayout(null);
 		panel_principal.add(panel_inscription);
 		
-		JLabel lblNewLabel_1 = new JLabel("INSCRIPTION");
+		lblNewLabel_1 = new JLabel("INSCRIPTION");
 		lblNewLabel_1.setFont(new Font("Tempus Sans ITC", Font.BOLD, 30));
 		lblNewLabel_1.setForeground(new Color(98, 129, 159));
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(0, 5, 380, 40);
+		lblNewLabel_1.setBounds(0, 5, 660, 40);
 		panel_inscription.add(lblNewLabel_1);	
 	}
 	
 	private void creerInput() {
+		BlockInput inputObj;
 		for (int i = 0; i < input.length; i++) {
-			BlockInput inputObj = new BlockInput(password[i], texteInput[i], imgInput[i], pos[i]);
+			if(i < 4) {
+				inputObj = new BlockInput(password[i], texteInput[i], imgInput[i], 30,  pos[i]);
+			}else {
+				inputObj = new BlockInput(password[i], texteInput[i], imgInput[i], 345,  pos[i]);
+			}
+			
 			panel_inscription.add(inputObj.getBlock_1());
 			panel_inscription.add(inputObj.getBlock_2());
 			
@@ -209,7 +208,7 @@ public class FrameCreerCompte {
 		avertissement.setHorizontalAlignment(SwingConstants.CENTER);
 		avertissement.setInheritsPopupMenu(false);
 		avertissement.setFont(new Font("Tempus Sans ITC", Font.BOLD, 15));
-		avertissement.setBounds(0, 530, 380, 32);
+		avertissement.setBounds(0, 320, 280, 32);
 		panel_inscription.add(avertissement);
 	}
 	
@@ -220,17 +219,17 @@ public class FrameCreerCompte {
 		message.setHorizontalAlignment(SwingConstants.CENTER);
 		message.setInheritsPopupMenu(false);
 		message.setFont(new Font("Tempus Sans ITC", Font.BOLD, 20));
-		message.setBounds(0, 557, 380, 32);
+		message.setBounds(0, 360, 660, 32);
 		panel_inscription.add(message);
 	}
 	
 	private void boutonSubmit() {
-		JLabel lblNewLabel_8 = new JLabel("INSCRIPTION");
+		lblNewLabel_8 = new JLabel("INSCRIPTION");
 		lblNewLabel_8.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblNewLabel_8.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_8.setFont(new Font("Tempus Sans ITC", Font.BOLD, 30));
 		lblNewLabel_8.setForeground(Color.BLACK);
-		lblNewLabel_8.setBounds(0, 600, 380, 48);
+		lblNewLabel_8.setBounds(0, 400, 660, 48);
 		lblNewLabel_8.addMouseListener(new MouseAdapter() {
 
 			public void mouseClicked(MouseEvent e) {
@@ -248,7 +247,7 @@ public class FrameCreerCompte {
 		JLabel lblNewLabel_9 = new JLabel();
 		lblNewLabel_9.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_9.setBorder(null);
-		lblNewLabel_9.setBounds(0, 600, 380, 48);
+		lblNewLabel_9.setBounds(0, 400, 660, 48);
 		img = null;
 		try {
 			img = ImageIO.read(getClass().getResource("./images/bouton.png"));
@@ -261,11 +260,11 @@ public class FrameCreerCompte {
 	}
 	
 	private void lien() {
-		JLabel creerCompte = new JLabel("Vous avez déjà un compte");
+		creerCompte = new JLabel("Vous avez déjà un compte");
 		creerCompte.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		creerCompte.setFont(new Font("Tempus Sans ITC", Font.BOLD, 20));
 		creerCompte.setHorizontalAlignment(SwingConstants.CENTER);
-		creerCompte.setBounds(0, 650, 380, 32);
+		creerCompte.setBounds(0, 450, 660, 32);
 		creerCompte.setForeground(new Color(98, 129, 159));
 		creerCompte.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
@@ -307,6 +306,8 @@ public class FrameCreerCompte {
 			if(user.getListErreur().isEmpty()) {
 				try {
 					user.creerUpdateUserSql();
+					new FrameCreerCompte(user).getFrmCreerCompte().setVisible(true);
+					frmCreerCompte.dispose();
 				} catch (Exception e) {
 					if(user.getListErreur().containsKey("doublon")) {
 						messageTexte("Le compte existe déjà !");
@@ -318,12 +319,39 @@ public class FrameCreerCompte {
 		}
 	}
 	
+	private void passageEnVisu() {
+		lblNewLabel_1.setText("INFORMATIONS UTILISATEUR");
+		lblNewLabel_8.setText("MODIFIER");
+		creerCompte.setVisible(false);
+		
+		listInput.get("pseudo").setText(user.getPseudo());
+		listInput.get("email").setText(user.getEmail());
+		listInput.get("nom").setText(user.getNom());
+		listInput.get("prenom").setText(user.getPrenom());
+		listInput.get("ville").setText(user.getVille());
+		
+	}
+	
 	private void messageTexte(String texte) {
 		message.setText(texte);
 		message.setVisible(true);
 	}
 
 	
+	/**
+	 * @return the user
+	 */
+	public Utilisateur getUser() {
+		return user;
+	}
+
+	/**
+	 * @param user the user to set
+	 */
+	public void setUser(Utilisateur user) {
+		this.user = user;
+	}
+
 	/**
 	 * @return the frmCreerCompte
 	 */
