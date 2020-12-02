@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Insets;
+import java.awt.Point;
 import java.awt.Cursor;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
@@ -33,7 +34,7 @@ import java.awt.Toolkit;
 public class FrameConnexion {
 
 	private JFrame frmConnexion;
-	JTextField message;
+	JLabel message;
 	HashMap<String, JTextField> listInput = new HashMap<String, JTextField>();
 	Image img = null;
 	
@@ -79,6 +80,10 @@ public class FrameConnexion {
 		frmConnexion.getContentPane().setLayout(null);
 		frmConnexion.setUndecorated(true);
 		frmConnexion.setLocationRelativeTo(null);
+		
+		FrameDragListener frameDragListener = new FrameDragListener(frmConnexion);
+		frmConnexion.addMouseListener(frameDragListener);
+		frmConnexion.addMouseMotionListener(frameDragListener);
 		
 
 		JPanel panel_principal = new JPanel();
@@ -152,6 +157,18 @@ public class FrameConnexion {
 		panel_connexion.add(pseudo.getBlock_3());
 		panel_connexion.add(pseudo.getBlock_4());
 		listInput.put("pseudo", pseudo.getBlock_3());
+		listInput.get("pseudo").addFocusListener(new FocusAdapter()
+        {
+            @Override
+            public void focusGained(FocusEvent e)
+            {
+            	listInput.get("pseudo").setBorder(null);
+            	listInput.get("mdp").setBorder(null);
+            }
+            public void focusLost(FocusEvent e)
+            {
+            }
+        });
 		
 		BlockInput mdp = new BlockInput(true, "Mot de passe", "mdp", 44, 120);
 		panel_connexion.add(mdp.getBlock_1());
@@ -159,33 +176,27 @@ public class FrameConnexion {
 		panel_connexion.add(mdp.getBlock_3p());
 		panel_connexion.add(mdp.getBlock_4());
 		listInput.put("mdp", mdp.getBlock_3p());
-
-
-		message = new JTextField();
-		message.setHorizontalAlignment(SwingConstants.CENTER);
-		//message.setVisible(false);
-		//message.setBorder(new LineBorder(Color.RED));
-		//message.setInheritsPopupMenu(true);
-		message.setEditable(false);
-		message.setFont(new Font("Tempus Sans ITC", Font.BOLD, 20));
-		message.setBounds(0, 200, 380, 32);
-		message.addFocusListener(new FocusAdapter()
+		listInput.get("mdp").addFocusListener(new FocusAdapter()
         {
             @Override
             public void focusGained(FocusEvent e)
             {
-            	System.out.println(getMessageText());
-            	message.setText(getMessageText());
-            	
-            	
+            	listInput.get("mdp").setBorder(null);
+            	listInput.get("pseudo").setBorder(null);
             }
-            
             public void focusLost(FocusEvent e)
             {
-            	setMessageText(" ");
-            	message.setText("");
             }
         });
+
+
+		message = new JLabel();
+		message.setHorizontalAlignment(SwingConstants.CENTER);
+		//message.setVisible(false);
+		//message.setBorder(new LineBorder(Color.RED));
+		//message.setInheritsPopupMenu(true);
+		message.setFont(new Font("Tempus Sans ITC", Font.BOLD, 20));
+		message.setBounds(0, 200, 380, 32);
 		panel_connexion.add(message);
 
 		JLabel lblNewLabel_8 = new JLabel("CONNEXION");
@@ -196,39 +207,33 @@ public class FrameConnexion {
 		lblNewLabel_8.setBounds(0, 240, 380, 48);
 		lblNewLabel_8.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				
-				
-				
-			
-				
-				user = new Utilisateur();
-				System.out.println("coucou 1");
-				
-				
-				
-				
-				try {
-					
-					user = user.chercherUser(listInput.get("pseudo").getText(), listInput.get("mdp").getText());
-				
-					if (user != null) {
-						System.out.println("coucou 2");
-						new FrameCreerCompte(user).getFrmCreerCompte().setVisible(true);
-						frmConnexion.dispose();
-						
-					}else {
-						System.out.println("coucou 3");
-						listInput.get("pseudo").requestFocus();
-						setMessageText("Utilisateur non trouvé !");
-						message.requestFocus();
-						JOptionPane.showMessageDialog(null, 8.9, "This is not an integer.", JOptionPane.WARNING_MESSAGE);
-						
-					
-						
+				if (listInput.get("pseudo").getText().equals("")) {
+					listInput.get("pseudo").setBorder(new LineBorder(Color.RED));
+					message.setText("Il manque les données de connexion !");
+				}else if(listInput.get("mdp").getText().equals("")){
+					listInput.get("mdp").setBorder(new LineBorder(Color.RED));
+					message.setText("Il manque les données de connexion !");
+				}else {
+					listInput.get("mdp").setBorder(null);
+					listInput.get("pseudo").setBorder(null);
+					user = new Utilisateur();
+					System.out.println("coucou 1");
+					try {
+						user = user.chercherUser(listInput.get("pseudo").getText(), listInput.get("mdp").getText());	
+						if (user != null) {
+							System.out.println("coucou 2");
+							new FrameCreerCompte(user).getFrmCreerCompte().setVisible(true);
+							frmConnexion.dispose();					
+						}else {
+							System.out.println("coucou 3");
+							ImageIcon icon = new ImageIcon(getClass().getResource("./images/ko.png"));
+							JOptionPane.showMessageDialog(frmConnexion, "L'utilisateur n'est pas connue", "Erreur de connexion.", JOptionPane.WARNING_MESSAGE, icon);
+							message.setText(" ");
+						}
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
 					}
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
 				}
 			}
 		});
@@ -264,6 +269,28 @@ public class FrameConnexion {
 		panel_connexion.add(creerCompte);
 	}
 	
+	public static class FrameDragListener extends MouseAdapter {
+
+		private final JFrame frame;
+        private Point mouseDownCompCoords = null;
+
+        public FrameDragListener(JFrame frame) {
+            this.frame = frame;
+        }
+		
+        public void mouseReleased(MouseEvent e) {
+            mouseDownCompCoords = null;
+        }
+
+        public void mousePressed(MouseEvent e) {
+            mouseDownCompCoords = e.getPoint();
+        }
+
+        public void mouseDragged(MouseEvent e) {
+            Point currCoords = e.getLocationOnScreen();
+            frame.setLocation(currCoords.x - mouseDownCompCoords.x, currCoords.y - mouseDownCompCoords.y);
+        }
+    }
 	
 
 	/**

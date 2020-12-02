@@ -55,6 +55,7 @@ public class Utilisateur {
 				if(requetesSQL.doublonUser(this)) {
 					requetesSQL.insertUtilisateur(this);
 				}else {
+					listErreur.clear();
 					listErreur.put("doublon", 1);
 					throw new Exception("doublon user");
 				}
@@ -88,7 +89,7 @@ public class Utilisateur {
 	}
 
 	private boolean verifierDonnees(HashMap<String, String> listDonneeUser) {
-		
+		listErreur.clear();
 		boolean retour = true;
 		if(listDonneeUser.get("pseudo").equals("")) {
 			listErreur.put("pseudo", 1);

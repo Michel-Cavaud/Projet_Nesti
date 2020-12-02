@@ -6,9 +6,12 @@ import java.awt.Font;
 import java.awt.Frame;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -49,22 +52,6 @@ public class FrameCreerCompte {
 	Utilisateur user;
 	
 	Image img = null;
-	
-	/**
-	 * Launch the application.
-	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					FrameCreerCompte window = new FrameCreerCompte();
-					window.frmCreerCompte.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	} */
 
 	/**
 	 * Create the application.
@@ -92,23 +79,29 @@ public class FrameCreerCompte {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		
-		
 		frmCreerCompte = new JFrame();
-		frmCreerCompte.setTitle("Connexion");
+		if(getUser() == null) {
+			frmCreerCompte.setTitle("Inscription");
+		}else {
+			frmCreerCompte.setTitle("Visualisation");
+		}
 		frmCreerCompte.setIconImage(Toolkit.getDefaultToolkit().getImage(FrameConnexion.class.getResource("/utilisateur/images/user.png")));
 		frmCreerCompte.setSize(660, 540);
 		frmCreerCompte.getContentPane().setLayout(null);
 		frmCreerCompte.setUndecorated(true);
 		frmCreerCompte.setLocationRelativeTo(null);
 		
-		
+		FrameDragListener frameDragListener = new FrameDragListener(frmCreerCompte);
+		frmCreerCompte.addMouseListener(frameDragListener);
+		frmCreerCompte.addMouseMotionListener(frameDragListener);
 		
 		panel_principal = new JPanel();
 		panel_principal.setBounds(0, 0, 660, 540);
 		panel_principal.setBackground(new Color(194, 194, 194));
 		panel_principal.setLayout(null);
 		frmCreerCompte.getContentPane().add(panel_principal);
+		
+		
 	}
 	
 	private void sortir() {
@@ -199,7 +192,6 @@ public class FrameCreerCompte {
 			
 			panel_inscription.add(inputObj.getBlock_4());
 		}
-
 	}
 	
 	private void avertissement() {
@@ -282,8 +274,12 @@ public class FrameCreerCompte {
 			listInput.get("mdp1").setBorder(new LineBorder(Color.RED));
 			messageTexte("Les mots de passe sont différents !");
 		}else {
-			user = new Utilisateur();
+			if(user == null) {
+				user = new Utilisateur();
+			}
 			HashMap<String, String> listDonneeUser = new HashMap<String, String>();
+			
+			System.out.println(listInput.get("pseudo").getText());
 			
 			listDonneeUser.put("pseudo", listInput.get("pseudo").getText());
 			listDonneeUser.put("email", listInput.get("email").getText());
@@ -298,7 +294,7 @@ public class FrameCreerCompte {
 				for (Map.Entry<String, Integer> mapentry : user.getListErreur().entrySet()) {
 					listInput.get(mapentry.getKey()).setBorder(new LineBorder(Color.RED));
 					
-					//System.out.println("clé: " + mapentry.getKey() + " | valeur: " + mapentry.getValue());
+					System.out.println("clé: " + mapentry.getKey() + " | valeur: " + mapentry.getValue());
 				}
 				messageTexte("Erreurs dans la saisie des données !");
 			}
@@ -336,7 +332,66 @@ public class FrameCreerCompte {
 		message.setText(texte);
 		message.setVisible(true);
 	}
+	
+	public static class FrameDragListener extends MouseAdapter {
 
+		private final JFrame frame;
+        private Point mouseDownCompCoords = null;
+
+        public FrameDragListener(JFrame frame) {
+            this.frame = frame;
+        }
+        public void mouseReleased(MouseEvent e) {
+            mouseDownCompCoords = null;
+        }
+        public void mousePressed(MouseEvent e) {
+            mouseDownCompCoords = e.getPoint();
+        }
+        public void mouseDragged(MouseEvent e) {
+            Point currCoords = e.getLocationOnScreen();
+            frame.setLocation(currCoords.x - mouseDownCompCoords.x, currCoords.y - mouseDownCompCoords.y);
+        }
+    }
+
+	public static class TitreKeyListener implements KeyListener {
+	    private final JTextFiel label;
+	     
+	    public TitreKeyListener(JLabel label_) {
+	        label = label_;
+	    }
+	 
+	    public void keyPressed(KeyEvent e) {
+	        label.setText("Touche pressée : " + e.getKeyCode() + 
+	                " (" + e.getKeyChar() + ")");
+	    }
+	 
+	    public void keyReleased(KeyEvent e) {
+	        label.setText("Touche relâchée : " + e.getKeyCode() +
+	                " (" + e.getKeyChar() + ")");
+	    }
+	 
+	    public void keyTyped(KeyEvent e) {
+	        // on ne fait rien
+	    }
+
+		@Override
+		public void keyTyped(KeyEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void keyPressed(KeyEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void keyReleased(KeyEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+	}
 	
 	/**
 	 * @return the user

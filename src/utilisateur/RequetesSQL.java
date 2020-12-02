@@ -8,8 +8,6 @@ public class RequetesSQL extends ConnexionSQL {
 
 	public RequetesSQL(String url, String login, String mdp, String bdd) {
 		super(url, login, mdp, bdd);
-
-
 	}
 	
 	public boolean insertUtilisateur(Utilisateur user) throws Exception{
