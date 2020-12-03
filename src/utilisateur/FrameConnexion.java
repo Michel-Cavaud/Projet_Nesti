@@ -222,7 +222,7 @@ public class FrameConnexion {
 						user = user.chercherUser(listInput.get("pseudo").getText(), listInput.get("mdp").getText());	
 						if (user != null) {
 							System.out.println("coucou 2");
-							new FrameCreerCompte(user).getFrmCreerCompte().setVisible(true);
+							new FrameVisuCompte(user).getfrmVisuCompte().setVisible(true);
 							frmConnexion.dispose();					
 						}else {
 							System.out.println("coucou 3");

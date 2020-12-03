@@ -14,8 +14,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
-
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -24,12 +22,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.border.LineBorder;
 
-public class FrameCreerCompte {
 
+public class FrameVisuCompte {
 	
-	private JFrame frmCreerCompte;
+	private JFrame frmVisuCompte;
 	JPanel panel_inscription;
 	JPanel panel_principal;
 	JLabel message;
@@ -41,20 +38,22 @@ public class FrameCreerCompte {
     private int posY = 0;
    
 	private HashMap<String, JTextField> listInput = new HashMap<String, JTextField>();
-	private String[] input = {"email", "pseudo", "mdp", "mdp1", "nom", "prenom", "ville"};
-	private String[] texteInput = {"Votre email*", "Votre pseudo*", "Mot de passe*", "Confirmer MDP*", "Votre Nom", "Votre prénom", "Votre ville"};
-	private String[] imgInput = {"email", "user", "mdp", "mdp", "user", "user", "ville"};
-	private boolean[] password = {false, false, true, true, false, false, false};
-	private int[] pos = {30, 100, 170, 240, 30, 100, 170};
+	private String[] input = {"email", "pseudo", "nom", "prenom", "ville"};
+	private String[] texteInput = {"Votre email", "Votre pseudo", "Votre Nom", "Votre prénom", "Votre ville"};
+	private String[] imgInput = {"email", "user", "user", "user", "ville"};
+	private boolean[] password = {false, false, false, false, false};
+	private int[] pos = {50, 120, 50, 120, 190};
 	
 	Utilisateur user;
 	
 	Image img = null;
 
+	
+	
 	/**
 	 * Create the application.
 	 */
-	public FrameCreerCompte(Utilisateur user) {
+	public FrameVisuCompte(Utilisateur user) {
 		setUser(user);
 		initialize();
 		titrePrincipal();
@@ -62,13 +61,12 @@ public class FrameCreerCompte {
 		sortir();
 		titre();
 		creerInput();
-		avertissement();
-		message();
-		boutonSubmit();
+		
 		lien();
 		if(getUser()!= null) {
 			passageEnVisu();
 		}
+		
 	}
 
 	
@@ -77,27 +75,28 @@ public class FrameCreerCompte {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frmCreerCompte = new JFrame();
+		frmVisuCompte = new JFrame();
 		if(getUser() == null) {
-			frmCreerCompte.setTitle("Inscription");
+			frmVisuCompte.dispose();
+			new FrameConnexion().getFrmConnexion().setVisible(true); 
 		}else {
-			frmCreerCompte.setTitle("Visualisation");
+			frmVisuCompte.setTitle("Visualisation");
 		}
-		frmCreerCompte.setIconImage(Toolkit.getDefaultToolkit().getImage(FrameConnexion.class.getResource("/utilisateur/images/user.png")));
-		frmCreerCompte.setSize(660, 540);
-		frmCreerCompte.getContentPane().setLayout(null);
-		frmCreerCompte.setUndecorated(true);
-		frmCreerCompte.setLocationRelativeTo(null);
+		frmVisuCompte.setIconImage(Toolkit.getDefaultToolkit().getImage(FrameConnexion.class.getResource("/utilisateur/images/user.png")));
+		frmVisuCompte.setSize(660, 360);
+		frmVisuCompte.getContentPane().setLayout(null);
+		frmVisuCompte.setUndecorated(true);
+		frmVisuCompte.setLocationRelativeTo(null);
 		
-		FrameDragListener frameDragListener = new FrameDragListener(frmCreerCompte);
-		frmCreerCompte.addMouseListener(frameDragListener);
-		frmCreerCompte.addMouseMotionListener(frameDragListener);
+		FrameDragListener frameDragListener = new FrameDragListener(frmVisuCompte);
+		frmVisuCompte.addMouseListener(frameDragListener);
+		frmVisuCompte.addMouseMotionListener(frameDragListener);
 		
 		panel_principal = new JPanel();
-		panel_principal.setBounds(0, 0, 660, 540);
+		panel_principal.setBounds(0, 0, 660, 360);
 		panel_principal.setBackground(new Color(194, 194, 194));
 		panel_principal.setLayout(null);
-		frmCreerCompte.getContentPane().add(panel_principal);
+		frmVisuCompte.getContentPane().add(panel_principal);
 		
 		
 	}
@@ -106,7 +105,7 @@ public class FrameCreerCompte {
 		JButton sortir = new JButton("");
 		sortir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frmCreerCompte.dispose();
+				frmVisuCompte.dispose();
 			}
 		});
 		sortir.setBorder(null);
@@ -135,7 +134,7 @@ public class FrameCreerCompte {
 		reduit.setFont(new Font("Tempus Sans ITC", Font.BOLD, 40));
 		reduit.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				frmCreerCompte.setState(Frame.ICONIFIED);
+				frmVisuCompte.setState(Frame.ICONIFIED);
 			}
 		});
 		reduit.setBounds(567, 11, 43, 31);
@@ -145,22 +144,22 @@ public class FrameCreerCompte {
 	private void titrePrincipal() {
 		JLabel lblNewLabel = new JLabel("NESTI");
 		lblNewLabel.setBounds(85, 10, 499, 40);
-		panel_principal.add(lblNewLabel);
 		lblNewLabel.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		lblNewLabel.setForeground(new Color(98, 129, 159));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Tempus Sans ITC", Font.BOLD, 30));
+		panel_principal.add(lblNewLabel);
 	}
 	
 	private void titre() {
 		panel_inscription = new JPanel();
 		panel_inscription.setBackground(new Color(194, 194, 194));
 		panel_inscription.setBorder(null);
-		panel_inscription.setBounds(0, 53, 660, 540);
+		panel_inscription.setBounds(0, 53, 660, 360);
 		panel_inscription.setLayout(null);
 		panel_principal.add(panel_inscription);
 		
-		lblNewLabel_1 = new JLabel("INSCRIPTION");
+		lblNewLabel_1 = new JLabel("INFORMATIONS UTILISATEUR");
 		lblNewLabel_1.setFont(new Font("Tempus Sans ITC", Font.BOLD, 30));
 		lblNewLabel_1.setForeground(new Color(98, 129, 159));
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -171,7 +170,7 @@ public class FrameCreerCompte {
 	private void creerInput() {
 		BlockInput inputObj;
 		for (int i = 0; i < input.length; i++) {
-			if(i < 4) {
+			if(i < 2) {
 				inputObj = new BlockInput(password[i], texteInput[i], imgInput[i], 30,  pos[i]);
 			}else {
 				inputObj = new BlockInput(password[i], texteInput[i], imgInput[i], 345,  pos[i]);
@@ -185,142 +184,32 @@ public class FrameCreerCompte {
 				panel_inscription.add(inputObj.getBlock_3p());
 			}else {
 				listInput.put(input[i], inputObj.getBlock_3());
+				inputObj.getBlock_3().setEditable(false);  
+				
 				panel_inscription.add(inputObj.getBlock_3());
-				if(user != null & i == 0) {
-					inputObj.getBlock_3().setEditable(false);
-					inputObj.getBlock_1().setText("Votre email");
-				}
 			}
 			
 			panel_inscription.add(inputObj.getBlock_4());
 		}
 	}
 	
-	private void avertissement() {
-		JLabel avertissement = new JLabel("* données obligatoires");
-		//message.setVisible(false);
-		avertissement.setHorizontalAlignment(SwingConstants.CENTER);
-		avertissement.setInheritsPopupMenu(false);
-		avertissement.setFont(new Font("Tempus Sans ITC", Font.BOLD, 15));
-		avertissement.setBounds(0, 320, 280, 32);
-		panel_inscription.add(avertissement);
-	}
-	
-	private void message() {
-		message = new JLabel("");
-		message.setVisible(false);
-		message.setBorder(new LineBorder(Color.RED));
-		message.setHorizontalAlignment(SwingConstants.CENTER);
-		message.setInheritsPopupMenu(false);
-		message.setFont(new Font("Tempus Sans ITC", Font.BOLD, 20));
-		message.setBounds(0, 360, 660, 32);
-		panel_inscription.add(message);
-	}
-	
-	private void boutonSubmit() {
-		lblNewLabel_8 = new JLabel("INSCRIPTION");
-		lblNewLabel_8.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		lblNewLabel_8.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_8.setFont(new Font("Tempus Sans ITC", Font.BOLD, 30));
-		lblNewLabel_8.setForeground(Color.BLACK);
-		lblNewLabel_8.setBounds(0, 400, 660, 48);
-		lblNewLabel_8.addMouseListener(new MouseAdapter() {
-
-			public void mouseClicked(MouseEvent e) {
-				//efface toutes les bordures
-				for(int i = 0; i < input.length; i++) {
-					listInput.get(input[i]).setBorder(null);
-				}
-				//cahe les messages
-				message.setVisible(false);
-				verifierSaisie();
-			}
-		});
-		panel_inscription.add(lblNewLabel_8);
-
-		JLabel lblNewLabel_9 = new JLabel();
-		lblNewLabel_9.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_9.setBorder(null);
-		lblNewLabel_9.setBounds(0, 400, 660, 48);
-		img = null;
-		try {
-			img = ImageIO.read(getClass().getResource("./images/bouton.png"));
-			lblNewLabel_9.setIcon(new ImageIcon(img));
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		lblNewLabel_9.setBackground(new Color(194, 194, 194));
-		panel_inscription.add(lblNewLabel_9);
-	}
-	
 	private void lien() {
-		creerCompte = new JLabel("Vous avez déjà un compte");
+		creerCompte = new JLabel("Modifier mes informations");
 		creerCompte.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		creerCompte.setFont(new Font("Tempus Sans ITC", Font.BOLD, 20));
 		creerCompte.setHorizontalAlignment(SwingConstants.CENTER);
-		creerCompte.setBounds(0, 450, 660, 32);
+		creerCompte.setBounds(0, 270, 660, 32);
 		creerCompte.setForeground(new Color(98, 129, 159));
 		creerCompte.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				frmCreerCompte.dispose();
-				new FrameConnexion().getFrmConnexion().setVisible(true);  
+				new FrameModifierCompte(user).getfrmModifierCompte().setVisible(true);
+				frmVisuCompte.dispose();		
 			}
 		});
 		panel_inscription.add(creerCompte);
 	}
 	
-	 
-	private void verifierSaisie() {
-		if(!listInput.get("mdp").getText().equals(listInput.get("mdp1").getText())){
-			listInput.get("mdp").setBorder(new LineBorder(Color.RED));
-			listInput.get("mdp1").setBorder(new LineBorder(Color.RED));
-			messageTexte("Les mots de passe sont différents !");
-		}else {
-			if(user == null) {
-				user = new Utilisateur();
-			}
-			HashMap<String, String> listDonneeUser = new HashMap<String, String>();
-			
-			System.out.println(listInput.get("pseudo").getText());
-			
-			listDonneeUser.put("pseudo", listInput.get("pseudo").getText());
-			listDonneeUser.put("email", listInput.get("email").getText());
-			listDonneeUser.put("mdp", listInput.get("mdp").getText());
-			listDonneeUser.put("nom", listInput.get("nom").getText());
-			listDonneeUser.put("prenom", listInput.get("prenom").getText());
-			listDonneeUser.put("ville", listInput.get("ville").getText());
-			
-			try {
-				user.ajouterModifierUtilisateur(listDonneeUser);
-			} catch (Exception e) {	
-				for (Map.Entry<String, Integer> mapentry : user.getListErreur().entrySet()) {
-					listInput.get(mapentry.getKey()).setBorder(new LineBorder(Color.RED));
-					
-					System.out.println("clé: " + mapentry.getKey() + " | valeur: " + mapentry.getValue());
-				}
-				messageTexte("Erreurs dans la saisie des données !");
-			}
-			
-			if(user.getListErreur().isEmpty()) {
-				try {
-					user.creerUpdateUserSql();
-					new FrameVisuCompte(user).getfrmVisuCompte().setVisible(true);
-					frmCreerCompte.dispose();
-				} catch (Exception e) {
-					if(user.getListErreur().containsKey("doublon")) {
-						messageTexte("Le compte existe déjà !");
-					}else {
-						messageTexte("Erreur à la création du compte !");
-					}
-				}
-			}
-		}
-	}
-	
 	private void passageEnVisu() {
-		lblNewLabel_1.setText("MODIFICATIONS INFORMATIONS");
-		lblNewLabel_8.setText("MODIFIER");
-		creerCompte.setVisible(false);
 		
 		listInput.get("pseudo").setText(user.getPseudo());
 		listInput.get("email").setText(user.getEmail());
@@ -328,11 +217,6 @@ public class FrameCreerCompte {
 		listInput.get("prenom").setText(user.getPrenom());
 		listInput.get("ville").setText(user.getVille());
 		
-	}
-	
-	private void messageTexte(String texte) {
-		message.setText(texte);
-		message.setVisible(true);
 	}
 	
 	public static class FrameDragListener extends MouseAdapter {
@@ -372,17 +256,17 @@ public class FrameCreerCompte {
 	}
 
 	/**
-	 * @return the frmCreerCompte
+	 * @return the frmVisuCompte
 	 */
-	public JFrame getFrmCreerCompte() {
-		return frmCreerCompte;
+	public JFrame getfrmVisuCompte() {
+		return frmVisuCompte;
 	}
 
 	/**
-	 * @param frmCreerCompte the frmCreerCompte to set
+	 * @param frmVisuCompte the frmVisuCompte to set
 	 */
-	public void setFrmCreerCompte(JFrame frmCreerCompte) {
-		this.frmCreerCompte = frmCreerCompte;
+	public void setfrmVisuCompte(JFrame frmVisuCompte) {
+		this.frmVisuCompte = frmVisuCompte;
 	}
 
 	/**
@@ -416,3 +300,4 @@ public class FrameCreerCompte {
 
 
 }
+

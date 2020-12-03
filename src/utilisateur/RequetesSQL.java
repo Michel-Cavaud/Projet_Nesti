@@ -33,6 +33,7 @@ public class RequetesSQL extends ConnexionSQL {
 	
 	public  boolean updateUtilisateur(Utilisateur user) throws Exception{
 		boolean flag = false;
+		
 		try {
 			String query = "UPDATE utilisateurs SET pseudo = ?, email = ?, mdp = ?, nom = ?, prenom = ?, ville = ? WHERE id_utilisateur = ?";
 			PreparedStatement declaration = accessDataBase.prepareStatement(query);
@@ -42,6 +43,27 @@ public class RequetesSQL extends ConnexionSQL {
 				declaration.setString(i+1, donnees[i]);
 			}
 			declaration.setInt(7, user.getId());
+			System.out.println(declaration);
+			int executeUpdate = declaration.executeUpdate();
+			flag = (executeUpdate == 1);
+		} catch (Exception e) {
+			user.setListErreur("update", 1);
+			throw new Exception("Erreur connexion");
+		}
+		return flag;
+		
+	}
+	public  boolean updateInfoUtilisateur(Utilisateur user) throws Exception{
+		boolean flag = false;
+		try {
+			String query = "UPDATE utilisateurs SET pseudo = ?, nom = ?, prenom = ?, ville = ? WHERE id_utilisateur = ?";
+			PreparedStatement declaration = accessDataBase.prepareStatement(query);
+			
+			String[] donnees = user.getInfoUserTab();
+			for (int i = 0; i< donnees.length; i++) {
+				declaration.setString(i+1, donnees[i]);
+			}
+			declaration.setInt(5, user.getId());
 			System.out.println(declaration);
 			int executeUpdate = declaration.executeUpdate();
 			flag = (executeUpdate == 1);

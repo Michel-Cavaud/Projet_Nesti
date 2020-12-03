@@ -37,6 +37,7 @@ public class Utilisateur {
 			setNom(listDonneeUser.get("nom"));
 			setPrenom(listDonneeUser.get("prenom"));
 			setVille(listDonneeUser.get("ville"));	
+			
 		} else {
 			//listErreur.put("user", 1);
 			throw new Exception("User incorrecte");
@@ -64,8 +65,9 @@ public class Utilisateur {
 				throw new Exception("création impossible");
 			}
 		}else{
-			try {		
-				requetesSQL.updateUtilisateur(this);
+			try {	
+				
+				requetesSQL.updateInfoUtilisateur(this);
 			} catch (Exception e) {
 				throw new Exception("création impossible");
 			}
@@ -84,7 +86,7 @@ public class Utilisateur {
 	}
 	
 	public String[] getInfoUserTab(){
-		String[] tableau = {getPseudo(), getEmail(), getMdp(), getNom(), getPrenom(), getVille()};
+		String[] tableau = {getPseudo(), getNom(), getPrenom(), getVille()};
 		return tableau;
 	}
 
