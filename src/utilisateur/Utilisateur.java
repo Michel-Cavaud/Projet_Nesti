@@ -3,6 +3,7 @@ package utilisateur;
 
 import java.sql.ResultSet;
 import java.util.HashMap;
+import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import jbcrypt.BCrypt;
@@ -26,18 +27,18 @@ public class Utilisateur {
 
 	public void ajouterModifierUtilisateur(HashMap<String, String> listDonneeUser) throws Exception {
 
-		/*for (Map.Entry mapentry : listDonneeUser.entrySet()) {
+		/*for (Entry<String, String> mapentry : listDonneeUser.entrySet()) {
 			System.out.println("clé: " + mapentry.getKey() + " | valeur: " + mapentry.getValue());
 		}*/
-		
+		System.out.println(listDonneeUser.get("nom"));
 		if(this.verifierDonnees(listDonneeUser)) {
+			
 			setPseudo(listDonneeUser.get("pseudo"));
 			setEmail(listDonneeUser.get("email"));
 			setMdp(listDonneeUser.get("mdp"));
 			setNom(listDonneeUser.get("nom"));
 			setPrenom(listDonneeUser.get("prenom"));
 			setVille(listDonneeUser.get("ville"));	
-			
 		} else {
 			//listErreur.put("user", 1);
 			throw new Exception("User incorrecte");
@@ -149,7 +150,7 @@ public class Utilisateur {
 		return m.matches();
 	}
 	
-	public static boolean mdpValide(String mdp) {
+	public boolean mdpValide(String mdp) {
 		Pattern p = Pattern.compile("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[&#-+!*$@%_])([&#-+!*$@%_\\w]{8,15})$");
 		Matcher m = p.matcher(mdp);
 		return m.matches();

@@ -60,6 +60,7 @@ public class RequetesSQL extends ConnexionSQL {
 			PreparedStatement declaration = accessDataBase.prepareStatement(query);
 			
 			String[] donnees = user.getInfoUserTab();
+			
 			for (int i = 0; i< donnees.length; i++) {
 				declaration.setString(i+1, donnees[i]);
 			}

@@ -204,7 +204,7 @@ public class FrameModifierCompte{
 		message.setHorizontalAlignment(SwingConstants.CENTER);
 		message.setInheritsPopupMenu(false);
 		message.setFont(new Font("Tempus Sans ITC", Font.BOLD, 20));
-		message.setBounds(0, 360, 660, 32);
+		message.setBounds(0, 410, 660, 32);
 		panel_inscription.add(message);
 	}
 	
@@ -224,7 +224,7 @@ public class FrameModifierCompte{
 				}
 				//cahe les messages
 				message.setVisible(false);
-				verifierSaisieInfo();
+				verifierSaisieMdp();
 			}
 		});
 		panel_inscription.add(lblNewLabel_8);
@@ -262,6 +262,8 @@ public class FrameModifierCompte{
 				message.setVisible(false);
 				verifierSaisieInfo();
 			}
+
+			
 		});
 		panel_inscription.add(lblNewLabel_10);
 
@@ -296,50 +298,51 @@ public class FrameModifierCompte{
 		panel_inscription.add(creerCompte);
 	}
 	
+	private void verifierSaisieMdp() {
+		if (listInput.get("mdpa").getText().equals("")){
+			messageTexte("Merci d'indiquer votre mot de passe actuel !");
+			listInput.get("mdpa").setBorder(new LineBorder(Color.RED));
+		}else if (!listInput.get("mdpa").getText().equals(user.getMdp())) {
+			messageTexte("Votre  mot de passe actuel n'est pas reconnu !");
+			listInput.get("mdpa").setBorder(new LineBorder(Color.RED));
+		}
+		else if (listInput.get("mdp").getText().equals("")) {
+			messageTexte("Merci d'indiquer votre nouveau mot de passe !");
+			listInput.get("mdp").setBorder(new LineBorder(Color.RED));
+		}else if(!listInput.get("mdp").getText().equals(listInput.get("mdp1").getText())) {
+			messageTexte("Les deux mots de passe ne sont pas identiques !");
+			listInput.get("mdp").setBorder(new LineBorder(Color.RED));
+			listInput.get("mdp1").setBorder(new LineBorder(Color.RED));
+		}else if (user.mdpValide(listInput.get("mdp").getText())){
+			messageTexte("Votre nouveau mot de passe n'est pas assez fort !");
+			listInput.get("mdp").setBorder(new LineBorder(Color.RED));
+			listInput.get("mdp1").setBorder(new LineBorder(Color.RED));
+		}
+		else {
+			
+		}
+		
+	}
 	 
 	private void verifierSaisieInfo() {
 		
-		HashMap<String, String> listDonneeUser = new HashMap<String, String>();
+		if (listInput.get("pseudo").getText().equals("")){
+			messageTexte("Merci d'indiquer un pseudo !");
+			listInput.get("pseudo").setBorder(new LineBorder(Color.RED));
+		}else {
+			user.setPseudo(listInput.get("pseudo").getText());
+			user.setNom(listInput.get("nom").getText());
+			user.setPrenom(listInput.get("prenom").getText());
+			user.setVille(listInput.get("ville").getText());
 		
-		System.out.println(listInput.get("pseudo").getText());
-		
-		listDonneeUser.put("pseudo", listInput.get("pseudo").getText());
-		listDonneeUser.put("nom", listInput.get("nom").getText());
-		listDonneeUser.put("prenom", listInput.get("prenom").getText());
-		listDonneeUser.put("ville", listInput.get("ville").getText());
-		for (Entry<String, String> mapentry : listDonneeUser.entrySet()) {
-			System.out.println("clé: " + mapentry.getKey() + " | valeur: " + mapentry.getValue());
-		}
-		
-		try {
-					System.out.println(user.getMdp());
-			System.out.println(user.getPrenom());
-			user.ajouterModifierUtilisateur(listDonneeUser);
-
-		} catch (Exception e) {	
-			
-			for (Map.Entry<String, Integer> mapentry : user.getListErreur().entrySet()) {
-				listInput.get(mapentry.getKey()).setBorder(new LineBorder(Color.RED));
-				
-				System.out.println("clé: " + mapentry.getKey() + " | valeur: " + mapentry.getValue());
-			}
-			messageTexte("Erreurs dans la saisie des données !");
-		}
-		
-		if(user.getListErreur().isEmpty()) {
 			try {
-				
 				user.creerUpdateUserSql();
 				new FrameVisuCompte(user).getfrmVisuCompte().setVisible(true);
 				frmModifierCompte.dispose();
 			} catch (Exception e) {
-				if(user.getListErreur().containsKey("doublon")) {
-					messageTexte("Le compte existe déjà !");
-				}else {
-					messageTexte("Erreur à la création du compte !");
-				}
+				messageTexte("Erreur à la création du compte !");
 			}
-			}
+		}	
 	}
 	private void passageEnVisu() {
 		
