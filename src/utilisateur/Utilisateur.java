@@ -45,6 +45,24 @@ public class Utilisateur {
 		}
 	}
 	
+	public void updateMdp() throws Exception {
+		try {
+			requetesSQL.openConnection();
+		} catch (Exception e) {
+			throw new Exception("connexion impossible");
+		}
+		try {
+			requetesSQL.updateMdpUtilisateur(this);
+		} catch (Exception e) {
+			throw new Exception("close impossible");
+		}
+		try {
+			requetesSQL.closeConnection();
+		} catch (Exception e) {
+			throw new Exception("close impossible");
+		}
+	}
+	
 	
 	public void creerUpdateUserSql() throws Exception {
 			try {

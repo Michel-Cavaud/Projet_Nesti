@@ -313,13 +313,20 @@ public class FrameModifierCompte{
 			messageTexte("Les deux mots de passe ne sont pas identiques !");
 			listInput.get("mdp").setBorder(new LineBorder(Color.RED));
 			listInput.get("mdp1").setBorder(new LineBorder(Color.RED));
-		}else if (user.mdpValide(listInput.get("mdp").getText())){
+		}else if (!user.mdpValide(listInput.get("mdp").getText())){
 			messageTexte("Votre nouveau mot de passe n'est pas assez fort !");
 			listInput.get("mdp").setBorder(new LineBorder(Color.RED));
 			listInput.get("mdp1").setBorder(new LineBorder(Color.RED));
 		}
 		else {
-			
+			user.setMdp(listInput.get("mdp").getText());
+			try {
+				user.updateMdp();
+				new FrameVisuCompte(user).getfrmVisuCompte().setVisible(true);
+				frmModifierCompte.dispose();
+			} catch (Exception e) {
+				messageTexte("Erreur à la modification du mot de passe!");
+			} 
 		}
 		
 	}
@@ -340,10 +347,11 @@ public class FrameModifierCompte{
 				new FrameVisuCompte(user).getfrmVisuCompte().setVisible(true);
 				frmModifierCompte.dispose();
 			} catch (Exception e) {
-				messageTexte("Erreur à la création du compte !");
+				messageTexte("Erreur à la modification du compte !");
 			}
 		}	
 	}
+	
 	private void passageEnVisu() {
 		
 		listInput.get("pseudo").setText(user.getPseudo());

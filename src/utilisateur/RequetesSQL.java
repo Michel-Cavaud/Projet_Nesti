@@ -73,7 +73,24 @@ public class RequetesSQL extends ConnexionSQL {
 			throw new Exception("Erreur connexion");
 		}
 		return flag;
-		
+	}
+	
+	public  boolean updateMdpUtilisateur(Utilisateur user) throws Exception{
+		boolean flag = false;
+		try {
+			String query = "UPDATE utilisateurs SET mdp = ? WHERE id_utilisateur = ?";
+			PreparedStatement declaration = accessDataBase.prepareStatement(query);
+
+			declaration.setString(1, user.getMdp());
+			declaration.setInt(2, user.getId());
+			System.out.println(declaration);
+			int executeUpdate = declaration.executeUpdate();
+			flag = (executeUpdate == 1);
+		} catch (Exception e) {
+			user.setListErreur("updateMdp", 1);
+			throw new Exception("Erreur connexion");
+		}
+		return flag;
 	}
 	
 	public  boolean doublonUser(Utilisateur user) throws Exception{
