@@ -81,7 +81,7 @@ public class RequetesSQL extends ConnexionSQL {
 			String query = "UPDATE utilisateurs SET mdp = ? WHERE id_utilisateur = ?";
 			PreparedStatement declaration = accessDataBase.prepareStatement(query);
 
-			declaration.setString(1, user.getMdp());
+			declaration.setString(1, user.getMdpCrypte());
 			declaration.setInt(2, user.getId());
 			System.out.println(declaration);
 			int executeUpdate = declaration.executeUpdate();

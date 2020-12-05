@@ -1,13 +1,10 @@
 package utilisateur;
 
-
 import java.sql.ResultSet;
 import java.util.HashMap;
-import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import jbcrypt.BCrypt;
-
 
 
 public class Utilisateur {
@@ -104,6 +101,10 @@ public class Utilisateur {
 		return tableau;
 	}
 	
+	public String getMdpCrypte(){
+		return BCrypt.hashpw(getMdp(), BCrypt.gensalt());
+	}
+	
 	public String[] getInfoUserTab(){
 		String[] tableau = {getPseudo(), getNom(), getPrenom(), getVille()};
 		return tableau;
@@ -162,16 +163,31 @@ public class Utilisateur {
 		return null;
 	}
 
-	public static boolean emailValide(String email) {
+	private boolean emailValide(String email) {
 		Pattern p = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$");
 		Matcher m = p.matcher(email.toUpperCase());
 		return m.matches();
 	}
 	
 	public boolean mdpValide(String mdp) {
-		Pattern p = Pattern.compile("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[&#-+!*$@%_])([&#-+!*$@%_\\w]{8,15})$");
+		Pattern p = Pattern.compile("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[&#-+!$@%])([&#-+!*$@%_\\w]{8,})$");
 		Matcher m = p.matcher(mdp);
 		return m.matches();
+	}
+	
+	public static boolean[] analyseMdp(String texte) {
+		 boolean[] retour = {false, false, false, false, false};
+		
+		if(texte.length() > 8) {
+			retour[0] = true;
+		}
+		retour[1] = Pattern.compile("^.*[0-9].*").matcher(texte).matches();
+		retour[2] = Pattern.compile("^.*[a-z].*").matcher(texte).matches();
+		retour[3] = Pattern.compile("^.*[A-Z].*").matcher(texte).matches();
+		retour[4] = Pattern.compile("^.*[&#-+!$@%].*").matcher(texte).matches();
+		
+		return retour;
+		
 	}
 
 	/*if (BCrypt.checkpw(candidate, hashed))

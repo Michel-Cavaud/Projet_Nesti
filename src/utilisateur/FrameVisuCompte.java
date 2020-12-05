@@ -191,6 +191,7 @@ public class FrameVisuCompte {
 			
 			panel_inscription.add(inputObj.getBlock_4());
 		}
+
 	}
 	
 	private void lien() {

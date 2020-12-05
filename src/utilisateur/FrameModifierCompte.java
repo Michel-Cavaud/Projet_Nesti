@@ -14,9 +14,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -26,6 +23,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
+import javax.swing.event.CaretListener;
 
 public class FrameModifierCompte{
 
@@ -38,6 +36,7 @@ public class FrameModifierCompte{
 	JLabel lblNewLabel_8;
 	JLabel lblNewLabel_10;
 	JLabel creerCompte;
+	PanelMdp panelMdp;
 	
 	private int posX = 0;  
     private int posY = 0;
@@ -64,6 +63,7 @@ public class FrameModifierCompte{
 		sortir();
 		titre();
 		creerInput();
+		panelForceMdp();
 		avertissement();
 		message();
 		boutonSubmitMdp();
@@ -80,7 +80,7 @@ public class FrameModifierCompte{
 		frmModifierCompte.setTitle("Modifications");
 	
 		frmModifierCompte.setIconImage(Toolkit.getDefaultToolkit().getImage(FrameConnexion.class.getResource("/utilisateur/images/user.png")));
-		frmModifierCompte.setSize(660, 540);
+		frmModifierCompte.setSize(660, 580);
 		frmModifierCompte.getContentPane().setLayout(null);
 		frmModifierCompte.setUndecorated(true);
 		frmModifierCompte.setLocationRelativeTo(null);
@@ -90,11 +90,10 @@ public class FrameModifierCompte{
 		frmModifierCompte.addMouseMotionListener(frameDragListener);
 		
 		panel_principal = new JPanel();
-		panel_principal.setBounds(0, 0, 660, 540);
+		panel_principal.setBounds(0, 0, 660, 580);
 		panel_principal.setBackground(new Color(194, 194, 194));
 		panel_principal.setLayout(null);
 		frmModifierCompte.getContentPane().add(panel_principal);
-		
 	}
 	
 	private void sortir() {
@@ -185,6 +184,16 @@ public class FrameModifierCompte{
 			
 			panel_inscription.add(inputObj.getBlock_4());
 		}
+		//Vérification MDP a chaque frappe
+		listInput.get("mdp").addCaretListener(caretupdate);
+	}
+	
+	private void panelForceMdp(){
+		
+		panelMdp = new PanelMdp(60, 280);
+		panel_inscription.add(panelMdp.getPanelMdp());
+		
+		
 	}
 	
 	private void avertissement() {
@@ -204,17 +213,17 @@ public class FrameModifierCompte{
 		message.setHorizontalAlignment(SwingConstants.CENTER);
 		message.setInheritsPopupMenu(false);
 		message.setFont(new Font("Tempus Sans ITC", Font.BOLD, 20));
-		message.setBounds(0, 410, 660, 32);
+		message.setBounds(0, 450, 660, 32);
 		panel_inscription.add(message);
 	}
 	
 	private void boutonSubmitMdp() {
-		lblNewLabel_8 = new JLabel("MOFIFIER MDP");
+		lblNewLabel_8 = new JLabel("MODIFIER MDP");
 		lblNewLabel_8.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblNewLabel_8.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_8.setFont(new Font("Tempus Sans ITC", Font.BOLD, 20));
 		lblNewLabel_8.setForeground(Color.BLACK);
-		lblNewLabel_8.setBounds(40, 280, 290, 48);
+		lblNewLabel_8.setBounds(40, 400, 290, 48);
 		lblNewLabel_8.addMouseListener(new MouseAdapter() {
 
 			public void mouseClicked(MouseEvent e) {
@@ -232,7 +241,7 @@ public class FrameModifierCompte{
 		JLabel lblNewLabel_9 = new JLabel();
 		lblNewLabel_9.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_9.setBorder(null);
-		lblNewLabel_9.setBounds(40, 280, 290, 48);
+		lblNewLabel_9.setBounds(40, 400, 290, 48);
 		img = null;
 		try {
 			img = ImageIO.read(getClass().getResource("./images/bouton.png"));
@@ -245,7 +254,7 @@ public class FrameModifierCompte{
 	}
 	
 	private void boutonSubmitInfo() {
-		lblNewLabel_10 = new JLabel("MOFIFIER");
+		lblNewLabel_10 = new JLabel("MODIFIER");
 		lblNewLabel_10.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblNewLabel_10.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_10.setFont(new Font("Tempus Sans ITC", Font.BOLD, 20));
@@ -258,12 +267,10 @@ public class FrameModifierCompte{
 				for(int i = 0; i < input.length; i++) {
 					listInput.get(input[i]).setBorder(null);
 				}
-				//cahe les messages
+				//cache les messages
 				message.setVisible(false);
 				verifierSaisieInfo();
-			}
-
-			
+			}	
 		});
 		panel_inscription.add(lblNewLabel_10);
 
@@ -287,7 +294,7 @@ public class FrameModifierCompte{
 		creerCompte.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		creerCompte.setFont(new Font("Tempus Sans ITC", Font.BOLD, 20));
 		creerCompte.setHorizontalAlignment(SwingConstants.CENTER);
-		creerCompte.setBounds(0, 450, 660, 32);
+		creerCompte.setBounds(0, 480, 660, 32);
 		creerCompte.setForeground(new Color(98, 129, 159));
 		creerCompte.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
@@ -386,6 +393,33 @@ public class FrameModifierCompte{
         }
     }
 
+	CaretListener caretupdate = new CaretListener() {
+        public void caretUpdate(javax.swing.event.CaretEvent e) {
+            
+           boolean[] retours = Utilisateur.analyseMdp(((JTextField) e.getSource()).getText());
+           int toutVert = 0;
+           
+           for (int i = 0; i < retours.length; i++) {
+           	
+           	panelMdp.getCocheKO8CaractMdp()[i].setVisible(!retours[i]);
+           	panelMdp.getCocheOK8CaractMdp()[i].setVisible(retours[i]);
+           	
+           	if(retours[i]) {
+           		panelMdp.getLabelCaractMdp()[i].setForeground(Color.GREEN);
+           		toutVert++;
+           	}else {
+           		panelMdp.getLabelCaractMdp()[i].setForeground(Color.RED);
+           	}
+           }
+
+			if(toutVert == 5) {
+           	panelMdp.getPanelMdp().setBorder(new LineBorder(Color.GREEN));
+           }else {
+           	panelMdp.getPanelMdp().setBorder(new LineBorder(Color.RED));
+           }
+           
+        }
+    };
 	
 	
 	/**

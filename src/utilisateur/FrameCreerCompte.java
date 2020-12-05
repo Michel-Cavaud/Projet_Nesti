@@ -25,6 +25,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
+import javax.swing.event.CaretListener;
 
 public class FrameCreerCompte {
 
@@ -36,6 +37,7 @@ public class FrameCreerCompte {
 	JLabel lblNewLabel_1;
 	JLabel lblNewLabel_8;
 	JLabel creerCompte;
+	PanelMdp panelMdp;
 	
 	private int posX = 0;  
     private int posY = 0;
@@ -62,6 +64,7 @@ public class FrameCreerCompte {
 		sortir();
 		titre();
 		creerInput();
+		panelForceMdp();
 		avertissement();
 		message();
 		boutonSubmit();
@@ -194,6 +197,16 @@ public class FrameCreerCompte {
 			
 			panel_inscription.add(inputObj.getBlock_4());
 		}
+		//Vérification MDP a chaque frappe
+		listInput.get("mdp").addCaretListener(caretupdate);
+	}
+	
+	private void panelForceMdp(){
+		
+		panelMdp = new PanelMdp(320, 247);
+		panel_inscription.add(panelMdp.getPanelMdp());
+		
+		
 	}
 	
 	private void avertissement() {
@@ -213,7 +226,7 @@ public class FrameCreerCompte {
 		message.setHorizontalAlignment(SwingConstants.CENTER);
 		message.setInheritsPopupMenu(false);
 		message.setFont(new Font("Tempus Sans ITC", Font.BOLD, 20));
-		message.setBounds(0, 360, 660, 32);
+		message.setBounds(0, 365, 660, 32);
 		panel_inscription.add(message);
 	}
 	
@@ -267,6 +280,7 @@ public class FrameCreerCompte {
 			}
 		});
 		panel_inscription.add(creerCompte);
+		
 	}
 	
 	 
@@ -355,7 +369,34 @@ public class FrameCreerCompte {
         }
     }
 
-	
+	 CaretListener caretupdate = new CaretListener() {
+         public void caretUpdate(javax.swing.event.CaretEvent e) {
+             
+            boolean[] retours = Utilisateur.analyseMdp(((JTextField) e.getSource()).getText());
+            int toutVert = 0;
+            
+            for (int i = 0; i < retours.length; i++) {
+            	
+            	panelMdp.getCocheKO8CaractMdp()[i].setVisible(!retours[i]);
+            	panelMdp.getCocheOK8CaractMdp()[i].setVisible(retours[i]);
+            	
+            	if(retours[i]) {
+            		panelMdp.getLabelCaractMdp()[i].setForeground(Color.GREEN);
+            		toutVert++;
+            	}else {
+            		panelMdp.getLabelCaractMdp()[i].setForeground(Color.RED);
+            	}
+            }
+
+			if(toutVert == 5) {
+            	panelMdp.getPanelMdp().setBorder(new LineBorder(Color.GREEN));
+            }else {
+            	panelMdp.getPanelMdp().setBorder(new LineBorder(Color.RED));
+            }
+            
+         }
+     };
+
 	
 	/**
 	 * @return the user
