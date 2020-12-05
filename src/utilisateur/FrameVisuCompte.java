@@ -6,7 +6,6 @@ import java.awt.Font;
 import java.awt.Frame;
 import java.awt.Image;
 import java.awt.Insets;
-import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -219,28 +218,6 @@ public class FrameVisuCompte {
 		listInput.get("ville").setText(user.getVille());
 		
 	}
-	
-	public static class FrameDragListener extends MouseAdapter {
-
-		private final JFrame frame;
-        private Point mouseDownCompCoords = null;
-
-        public FrameDragListener(JFrame frame) {
-            this.frame = frame;
-        }
-        public void mouseReleased(MouseEvent e) {
-            mouseDownCompCoords = null;
-        }
-        public void mousePressed(MouseEvent e) {
-            mouseDownCompCoords = e.getPoint();
-        }
-        public void mouseDragged(MouseEvent e) {
-            Point currCoords = e.getLocationOnScreen();
-            frame.setLocation(currCoords.x - mouseDownCompCoords.x, currCoords.y - mouseDownCompCoords.y);
-        }
-    }
-
-	
 	
 	/**
 	 * @return the user
