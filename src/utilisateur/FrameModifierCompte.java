@@ -89,12 +89,7 @@ public class FrameModifierCompte{
 	}
 	
 	private void sortir() {
-		LesBoutonsSortir boutonsSortir = new LesBoutonsSortir(620);
-		boutonsSortir.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				frmModifierCompte.dispose();
-			}
-		});
+		LesBoutonsSortir boutonsSortir = new LesBoutonsSortir(frmModifierCompte, 620);
 		panel_principal.add(boutonsSortir);
 	}
 	

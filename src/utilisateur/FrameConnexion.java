@@ -33,6 +33,9 @@ import java.awt.Toolkit;
 public class FrameConnexion {
 
 	private JFrame frmConnexion;
+	JPanel panel_principal;
+	JPanel panel_connexion;
+	
 	JLabel message;
 	HashMap<String, JTextField> listInput = new HashMap<String, JTextField>();
 	Image img = null;
@@ -42,26 +45,18 @@ public class FrameConnexion {
 	Utilisateur user;
 
 	/**
-	 * Launch the application.
-	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					FrameConnexion window = new FrameConnexion();
-					window.frmConnexion.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	} */
-
-	/**
 	 * Create the application.
 	 */
 	public FrameConnexion() {
 		initialize();
+		titrePrincipal();
+		iconifie();
+		sortir();
+		titre();
+		creerInput();
+		message();
+		boutonSubmit();
+		lien();
 	}
 
 	/**
@@ -84,20 +79,23 @@ public class FrameConnexion {
 		frmConnexion.addMouseListener(frameDragListener);
 		frmConnexion.addMouseMotionListener(frameDragListener);
 		
-
-		JPanel panel_principal = new JPanel();
+		panel_principal = new JPanel();
 		panel_principal.setBounds(0, 0, 380, 370);
 		panel_principal.setBackground(new Color(194, 194, 194));
 		frmConnexion.getContentPane().add(panel_principal);
-
+	}
+	private void titrePrincipal() {
+		panel_principal.setLayout(null);
 		JLabel lblNewLabel = new JLabel("NESTI");
-		lblNewLabel.setBounds(73, 10, 219, 40);
-		panel_principal.add(lblNewLabel);
+		lblNewLabel.setBounds(113, 11, 83, 40);
 		lblNewLabel.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		lblNewLabel.setForeground(new Color(98, 129, 159));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Tempus Sans ITC", Font.BOLD, 30));
-		
+		panel_principal.add(lblNewLabel);
+	}	
+	
+	private void iconifie() {
 		JLabel reduit = new JLabel("–");
 		reduit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		reduit.setHorizontalAlignment(SwingConstants.CENTER);
@@ -110,39 +108,24 @@ public class FrameConnexion {
 				frmConnexion.setState(Frame.ICONIFIED);
 			}
 		});
-		reduit.setBounds(287, 11, 43, 31);
+		reduit.setBounds(287, 12, 43, 31);
 		panel_principal.add(reduit);
+	}
+	
+	private void sortir() {
+		LesBoutonsSortir boutonsSortir = new LesBoutonsSortir(frmConnexion, 340);
+		panel_principal.add(boutonsSortir);
+	}
+	
+	private void titre() {
 
-		//LesBoutonsSortir boutonsSortir = new LesBoutonsSortir(340);
-		JButton sortir = new JButton("");
-		sortir.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				frmConnexion.dispose();
-			}
-		});
-		sortir.setBorder(null);
-		sortir.setRequestFocusEnabled(false);
-		sortir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		sortir.setMargin(new Insets(0, 0, 0, 0));
-		sortir.setBounds(340, 11, 31, 31);
-		sortir.setBackground(new Color(194, 194, 194));
-		img = null;
-		try {
-			img = ImageIO.read(getClass().getResource("./images/sortir2.png"));
-			sortir.setIcon(new ImageIcon(img));
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		panel_principal.setLayout(null);
-
-		panel_principal.add(sortir);
-
-		JPanel panel_connexion = new JPanel();
+		panel_connexion = new JPanel();
 		panel_connexion.setBackground(new Color(194, 194, 194));
 		panel_connexion.setBorder(null);
-		panel_connexion.setBounds(0, 53, 380, 544);
-		panel_principal.add(panel_connexion);
+		panel_connexion.setBounds(0, 53, 380, 317);
 		panel_connexion.setLayout(null);
+		panel_principal.add(panel_connexion);
+		
 
 		JLabel lblNewLabel_1 = new JLabel("CONNEXION");
 		lblNewLabel_1.setFont(new Font("Tempus Sans ITC", Font.BOLD, 30));
@@ -150,8 +133,9 @@ public class FrameConnexion {
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setBounds(0, 10, 380, 40);
 		panel_connexion.add(lblNewLabel_1);
-		
-		
+	}
+	
+	private void creerInput() {
 		BlockInput pseudo = new BlockInput(false, "Pseudo ou Email", "user", 44, 50);
 		panel_connexion.add(pseudo.getBlock_1());
 		panel_connexion.add(pseudo.getBlock_2());
@@ -190,13 +174,16 @@ public class FrameConnexion {
             }
         });
 
-
+	}
+	private void message() {
 		message = new JLabel();
 		message.setHorizontalAlignment(SwingConstants.CENTER);
 		message.setFont(new Font("Tempus Sans ITC", Font.BOLD, 20));
 		message.setBounds(0, 200, 380, 32);
 		panel_connexion.add(message);
-
+	}
+	
+	private void boutonSubmit() {
 		LesBoutons connexion = new LesBoutons("CONNEXION", 0, 240, 380);
 		connexion.getLabelTexte().addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
@@ -232,7 +219,9 @@ public class FrameConnexion {
 		});
 		panel_connexion.add(connexion.getLabelTexte());
 		panel_connexion.add(connexion.getLabelImage());
-		
+	}
+	
+	private void lien() {
 		LesLiens lien = new LesLiens("Créer votre compte", 285, 380);
 		lien.addMouseListener(new MouseAdapter() {
 

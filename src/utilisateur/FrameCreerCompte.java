@@ -85,22 +85,17 @@ public class FrameCreerCompte {
 		panel_principal.setBackground(new Color(194, 194, 194));
 		panel_principal.setLayout(null);
 		frmCreerCompte.getContentPane().add(panel_principal);
-		
-		
 	}
 	
 	private void sortir() {
-		LesBoutonsSortir boutonsSortir = new LesBoutonsSortir(620);
-		boutonsSortir.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				frmCreerCompte.dispose();
-			}
-		});
+		LesBoutonsSortir boutonsSortir = new LesBoutonsSortir(frmCreerCompte, 620);
 		panel_principal.add(boutonsSortir);
 	}
 	
 	private void iconifie() {
-		JLabel reduit = new JLabel("–");
+		
+		LesIconifies boutonIconifie = new LesIconifies(frmCreerCompte, 567);
+		/*JLabel reduit = new JLabel("–");
 		reduit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		reduit.setHorizontalAlignment(SwingConstants.CENTER);
 		reduit.setBorder(null);
@@ -111,8 +106,8 @@ public class FrameCreerCompte {
 				frmCreerCompte.setState(Frame.ICONIFIED);
 			}
 		});
-		reduit.setBounds(567, 11, 43, 31);
-		panel_principal.add(reduit);
+		reduit.setBounds(567, 11, 43, 31);*/
+		panel_principal.add(boutonIconifie);
 	}
 	
 	private void titrePrincipal() {
@@ -129,7 +124,7 @@ public class FrameCreerCompte {
 		panel_inscription = new JPanel();
 		panel_inscription.setBackground(new Color(194, 194, 194));
 		panel_inscription.setBorder(null);
-		panel_inscription.setBounds(0, 53, 660, 540);
+		panel_inscription.setBounds(0, 53, 660, 487);
 		panel_inscription.setLayout(null);
 		panel_principal.add(panel_inscription);
 		
