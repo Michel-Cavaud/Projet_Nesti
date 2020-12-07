@@ -113,6 +113,7 @@ public class FrameConnexion {
 		reduit.setBounds(287, 11, 43, 31);
 		panel_principal.add(reduit);
 
+		//LesBoutonsSortir boutonsSortir = new LesBoutonsSortir(340);
 		JButton sortir = new JButton("");
 		sortir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -133,6 +134,7 @@ public class FrameConnexion {
 			e1.printStackTrace();
 		}
 		panel_principal.setLayout(null);
+
 		panel_principal.add(sortir);
 
 		JPanel panel_connexion = new JPanel();
@@ -191,20 +193,12 @@ public class FrameConnexion {
 
 		message = new JLabel();
 		message.setHorizontalAlignment(SwingConstants.CENTER);
-		//message.setVisible(false);
-		//message.setBorder(new LineBorder(Color.RED));
-		//message.setInheritsPopupMenu(true);
 		message.setFont(new Font("Tempus Sans ITC", Font.BOLD, 20));
 		message.setBounds(0, 200, 380, 32);
 		panel_connexion.add(message);
 
-		JLabel lblNewLabel_8 = new JLabel("CONNEXION");
-		lblNewLabel_8.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		lblNewLabel_8.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_8.setFont(new Font("Tempus Sans ITC", Font.BOLD, 30));
-		lblNewLabel_8.setForeground(Color.BLACK);
-		lblNewLabel_8.setBounds(0, 240, 380, 48);
-		lblNewLabel_8.addMouseListener(new MouseAdapter() {
+		LesBoutons connexion = new LesBoutons("CONNEXION", 0, 240, 380);
+		connexion.getLabelTexte().addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				if (listInput.get("pseudo").getText().equals("")) {
 					listInput.get("pseudo").setBorder(new LineBorder(Color.RED));
@@ -236,38 +230,20 @@ public class FrameConnexion {
 				}
 			}
 		});
-		panel_connexion.add(lblNewLabel_8);
-
-		JLabel lblNewLabel_9 = new JLabel();
-		lblNewLabel_9.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_9.setBorder(null);
-		lblNewLabel_9.setBounds(0, 240, 380, 48);
-		img = null;
-		try {
-			img = ImageIO.read(getClass().getResource("./images/bouton.png"));
-			lblNewLabel_9.setIcon(new ImageIcon(img));
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		lblNewLabel_9.setBackground(new Color(194, 194, 194));
-		panel_connexion.add(lblNewLabel_9);
-
-		JLabel creerCompte = new JLabel("Créer votre compte");
-		creerCompte.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		creerCompte.setFont(new Font("Tempus Sans ITC", Font.BOLD, 20));
-		creerCompte.setHorizontalAlignment(SwingConstants.CENTER);
-		creerCompte.setBounds(0, 285, 380, 32);
-		creerCompte.setForeground(new Color(98, 139, 159));
-		creerCompte.addMouseListener(new MouseAdapter() {
+		panel_connexion.add(connexion.getLabelTexte());
+		panel_connexion.add(connexion.getLabelImage());
+		
+		LesLiens lien = new LesLiens("Créer votre compte", 285, 380);
+		lien.addMouseListener(new MouseAdapter() {
 
 			public void mouseClicked(MouseEvent e) {
-				new FrameCreerCompte(null).getFrmCreerCompte().setVisible(true);
+				new FrameCreerCompte().getFrmCreerCompte().setVisible(true);
 				frmConnexion.dispose();
 			}
 		});
-		panel_connexion.add(creerCompte);
+		panel_connexion.add(lien);
+		
 	}
-	
 	
 	
 

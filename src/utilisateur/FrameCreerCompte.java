@@ -5,19 +5,11 @@ import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Frame;
 import java.awt.Image;
-import java.awt.Insets;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -32,7 +24,7 @@ public class FrameCreerCompte {
 	private JFrame frmCreerCompte;
 	JPanel panel_inscription;
 	JPanel panel_principal;
-	JLabel message;
+	LesMessages message;
 	JLabel lblNewLabel_1;
 	JLabel lblNewLabel_8;
 	JLabel creerCompte;
@@ -55,8 +47,8 @@ public class FrameCreerCompte {
 	/**
 	 * Create the application.
 	 */
-	public FrameCreerCompte(Utilisateur user) {
-		setUser(user);
+	public FrameCreerCompte() {
+		
 		initialize();
 		titrePrincipal();
 		iconifie();
@@ -68,9 +60,6 @@ public class FrameCreerCompte {
 		message();
 		boutonSubmit();
 		lien();
-		if(getUser()!= null) {
-			passageEnVisu();
-		}
 	}
 
 	
@@ -80,11 +69,7 @@ public class FrameCreerCompte {
 	 */
 	private void initialize() {
 		frmCreerCompte = new JFrame();
-		if(getUser() == null) {
-			frmCreerCompte.setTitle("Inscription");
-		}else {
-			frmCreerCompte.setTitle("Visualisation");
-		}
+		frmCreerCompte.setTitle("Inscription");
 		frmCreerCompte.setIconImage(Toolkit.getDefaultToolkit().getImage(FrameConnexion.class.getResource("/utilisateur/images/user.png")));
 		frmCreerCompte.setSize(660, 540);
 		frmCreerCompte.getContentPane().setLayout(null);
@@ -105,27 +90,13 @@ public class FrameCreerCompte {
 	}
 	
 	private void sortir() {
-		JButton sortir = new JButton("");
-		sortir.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		LesBoutonsSortir boutonsSortir = new LesBoutonsSortir(620);
+		boutonsSortir.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
 				frmCreerCompte.dispose();
 			}
 		});
-		sortir.setBorder(null);
-		sortir.setRequestFocusEnabled(false);
-		sortir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		sortir.setMargin(new Insets(0, 0, 0, 0));
-		sortir.setBounds(620, 11, 31, 31);
-		sortir.setBackground(new Color(194, 194, 194));
-		img = null;
-		try {
-			img = ImageIO.read(getClass().getResource("./images/sortir2.png"));
-			sortir.setIcon(new ImageIcon(img));
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		
-		panel_principal.add(sortir);
+		panel_principal.add(boutonsSortir);
 	}
 	
 	private void iconifie() {
@@ -188,12 +159,7 @@ public class FrameCreerCompte {
 			}else {
 				listInput.put(input[i], inputObj.getBlock_3());
 				panel_inscription.add(inputObj.getBlock_3());
-				if(user != null & i == 0) {
-					inputObj.getBlock_3().setEditable(false);
-					inputObj.getBlock_1().setText("Votre email");
-				}
 			}
-			
 			panel_inscription.add(inputObj.getBlock_4());
 		}
 		//Vérification MDP a chaque frappe
@@ -201,11 +167,8 @@ public class FrameCreerCompte {
 	}
 	
 	private void panelForceMdp(){
-		
 		panelMdp = new PanelMdp(320, 247);
 		panel_inscription.add(panelMdp.getPanelMdp());
-		
-		
 	}
 	
 	private void avertissement() {
@@ -219,25 +182,13 @@ public class FrameCreerCompte {
 	}
 	
 	private void message() {
-		message = new JLabel("");
-		message.setVisible(false);
-		message.setBorder(new LineBorder(Color.RED));
-		message.setHorizontalAlignment(SwingConstants.CENTER);
-		message.setInheritsPopupMenu(false);
-		message.setFont(new Font("Tempus Sans ITC", Font.BOLD, 20));
-		message.setBounds(0, 365, 660, 32);
+		message = new LesMessages(365);
 		panel_inscription.add(message);
 	}
 	
 	private void boutonSubmit() {
-		lblNewLabel_8 = new JLabel("INSCRIPTION");
-		lblNewLabel_8.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		lblNewLabel_8.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_8.setFont(new Font("Tempus Sans ITC", Font.BOLD, 30));
-		lblNewLabel_8.setForeground(Color.BLACK);
-		lblNewLabel_8.setBounds(0, 400, 660, 48);
-		lblNewLabel_8.addMouseListener(new MouseAdapter() {
-
+		LesBoutons connexion = new LesBoutons("INSCRIPTION",0, 400, 660);
+		connexion.getLabelTexte().addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				//efface toutes les bordures
 				for(int i = 0; i < input.length; i++) {
@@ -248,38 +199,19 @@ public class FrameCreerCompte {
 				verifierSaisie();
 			}
 		});
-		panel_inscription.add(lblNewLabel_8);
-
-		JLabel lblNewLabel_9 = new JLabel();
-		lblNewLabel_9.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_9.setBorder(null);
-		lblNewLabel_9.setBounds(0, 400, 660, 48);
-		img = null;
-		try {
-			img = ImageIO.read(getClass().getResource("./images/bouton.png"));
-			lblNewLabel_9.setIcon(new ImageIcon(img));
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		lblNewLabel_9.setBackground(new Color(194, 194, 194));
-		panel_inscription.add(lblNewLabel_9);
+		panel_inscription.add(connexion.getLabelTexte());
+		panel_inscription.add(connexion.getLabelImage());
 	}
 	
 	private void lien() {
-		creerCompte = new JLabel("Vous avez déjà un compte");
-		creerCompte.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		creerCompte.setFont(new Font("Tempus Sans ITC", Font.BOLD, 20));
-		creerCompte.setHorizontalAlignment(SwingConstants.CENTER);
-		creerCompte.setBounds(0, 450, 660, 32);
-		creerCompte.setForeground(new Color(98, 129, 159));
-		creerCompte.addMouseListener(new MouseAdapter() {
+		LesLiens lien = new LesLiens("Vous avez déjà un compte", 450, 660);
+		lien.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				frmCreerCompte.dispose();
 				new FrameConnexion().getFrmConnexion().setVisible(true);  
 			}
 		});
-		panel_inscription.add(creerCompte);
-		
+		panel_inscription.add(lien);
 	}
 	
 	 
@@ -289,9 +221,9 @@ public class FrameCreerCompte {
 			listInput.get("mdp1").setBorder(new LineBorder(Color.RED));
 			messageTexte("Les mots de passe sont différents !");
 		}else {
-			if(user == null) {
-				user = new Utilisateur();
-			}
+			
+			user = new Utilisateur();
+			
 			HashMap<String, String> listDonneeUser = new HashMap<String, String>();
 			
 			System.out.println(listInput.get("pseudo").getText());
@@ -330,7 +262,7 @@ public class FrameCreerCompte {
 		}
 	}
 	
-	private void passageEnVisu() {
+	/*private void passageEnVisu() {
 		lblNewLabel_1.setText("MODIFICATIONS INFORMATIONS");
 		lblNewLabel_8.setText("MODIFIER");
 		creerCompte.setVisible(false);
@@ -341,7 +273,7 @@ public class FrameCreerCompte {
 		listInput.get("prenom").setText(user.getPrenom());
 		listInput.get("ville").setText(user.getVille());
 		
-	}
+	}*/
 	
 	private void messageTexte(String texte) {
 		message.setText(texte);
@@ -361,7 +293,7 @@ public class FrameCreerCompte {
             	panelMdp.getCocheOK8CaractMdp()[i].setVisible(retours[i]);
             	
             	if(retours[i]) {
-            		panelMdp.getLabelCaractMdp()[i].setForeground(Color.GREEN);
+            		panelMdp.getLabelCaractMdp()[i].setForeground(new Color(46, 139, 87));
             		toutVert++;
             	}else {
             		panelMdp.getLabelCaractMdp()[i].setForeground(Color.RED);
@@ -369,7 +301,7 @@ public class FrameCreerCompte {
             }
 
 			if(toutVert == 5) {
-            	panelMdp.getPanelMdp().setBorder(new LineBorder(Color.GREEN));
+            	panelMdp.getPanelMdp().setBorder(new LineBorder(new Color(46, 139, 87)));
             }else {
             	panelMdp.getPanelMdp().setBorder(new LineBorder(Color.RED));
             }
