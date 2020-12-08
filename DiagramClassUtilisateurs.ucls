@@ -64,8 +64,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="8" language="java" name="elementsFrame.MesLabel" project="Projet_Nesti" 
-    file="/Projet_Nesti/src/elementsFrame/MesLabel.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="8" language="java" name="elementsFrame.LesLabel" project="Projet_Nesti" 
+    file="/Projet_Nesti/src/elementsFrame/LesLabel.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="141" y="207"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -73,8 +73,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="9" language="java" name="elementsFrame.MesPasswordField" project="Projet_Nesti" 
-    file="/Projet_Nesti/src/elementsFrame/MesPasswordField.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="9" language="java" name="elementsFrame.LesPasswordField" project="Projet_Nesti" 
+    file="/Projet_Nesti/src/elementsFrame/LesPasswordField.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="655" y="389"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      

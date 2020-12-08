@@ -7,11 +7,11 @@ public class BlockInput {
 	private int pos;
 	private int pos1;
 	private String img;
-	private MesLabel block_1;
-	private MesLabel block_2;
-	private MesPasswordField block_3p;
-	private MesTextField block_3;
-	private MesLabel block_4;
+	private LesLabel block_1;
+	private LesLabel block_2;
+	private LesPasswordField block_3p;
+	private LesTextField block_3;
+	private LesLabel block_4;
 	
 	public BlockInput(boolean password, String texte, String img, int pos, int pos1) {
 		setTexte(texte);
@@ -19,17 +19,17 @@ public class BlockInput {
 		setPos1(pos1);
 		setPos(pos);
 		
-		setBlock_1(new MesLabel(getTexte(), null, getPos(), getPos1()));
+		setBlock_1(new LesLabel(getTexte(), null, getPos(), getPos1()));
 		
-		setBlock_2(new MesLabel("", getImg(), getPos(), getPos1() + 28));
+		setBlock_2(new LesLabel("", getImg(), getPos(), getPos1() + 28));
 		
 		if(password == true) {
-			setBlock_3p(new MesPasswordField(getPos() + 44, getPos1() + 39));
+			setBlock_3p(new LesPasswordField(getPos() + 44, getPos1() + 39));
 		}else {
-			setBlock_3(new MesTextField(getPos() + 44, getPos1() + 39));
+			setBlock_3(new LesTextField(getPos() + 44, getPos1() + 39));
 		}
 		
-		setBlock_4(new MesLabel("", "input" , getPos() + 32, getPos1() + 30));
+		setBlock_4(new LesLabel("", "input" , getPos() + 32, getPos1() + 30));
 	}
 	
 	
@@ -52,7 +52,7 @@ public class BlockInput {
 	/**
 	 * @return the block_1
 	 */
-	public MesLabel getBlock_1() {
+	public LesLabel getBlock_1() {
 		return block_1;
 	}
 
@@ -61,7 +61,7 @@ public class BlockInput {
 	/**
 	 * @param block_1 the block_1 to set
 	 */
-	public void setBlock_1(MesLabel block_1) {
+	public void setBlock_1(LesLabel block_1) {
 		this.block_1 = block_1;
 	}
 
@@ -70,7 +70,7 @@ public class BlockInput {
 	/**
 	 * @return the block_2
 	 */
-	public MesLabel getBlock_2() {
+	public LesLabel getBlock_2() {
 		return block_2;
 	}
 
@@ -79,7 +79,7 @@ public class BlockInput {
 	/**
 	 * @param block_2 the block_2 to set
 	 */
-	public void setBlock_2(MesLabel block_2) {
+	public void setBlock_2(LesLabel block_2) {
 		this.block_2 = block_2;
 	}
 
@@ -88,7 +88,7 @@ public class BlockInput {
 	/**
 	 * @return the block_3p
 	 */
-	public MesPasswordField getBlock_3p() {
+	public LesPasswordField getBlock_3p() {
 		return block_3p;
 	}
 
@@ -97,7 +97,7 @@ public class BlockInput {
 	/**
 	 * @param block_3p the block_3p to set
 	 */
-	public void setBlock_3p(MesPasswordField block_3p) {
+	public void setBlock_3p(LesPasswordField block_3p) {
 		this.block_3p = block_3p;
 	}
 
@@ -106,7 +106,7 @@ public class BlockInput {
 	/**
 	 * @return the block_3
 	 */
-	public MesTextField getBlock_3() {
+	public LesTextField getBlock_3() {
 		return block_3;
 	}
 
@@ -115,7 +115,7 @@ public class BlockInput {
 	/**
 	 * @param block_3 the block_3 to set
 	 */
-	public void setBlock_3(MesTextField block_3) {
+	public void setBlock_3(LesTextField block_3) {
 		this.block_3 = block_3;
 	}
 
@@ -124,7 +124,7 @@ public class BlockInput {
 	/**
 	 * @return the block_4
 	 */
-	public MesLabel getBlock_4() {
+	public LesLabel getBlock_4() {
 		return block_4;
 	}
 
@@ -133,7 +133,7 @@ public class BlockInput {
 	/**
 	 * @param block_4 the block_4 to set
 	 */
-	public void setBlock_4(MesLabel block_4) {
+	public void setBlock_4(LesLabel block_4) {
 		this.block_4 = block_4;
 	}
 

@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JPasswordField;
 
-public class MesPasswordField extends JPasswordField {
+public class LesPasswordField extends JPasswordField {
 	
 	/**
 	 * 
@@ -13,7 +13,7 @@ public class MesPasswordField extends JPasswordField {
 	private int pos;
 	private int pos1;
 
-	public  MesPasswordField(int pos, int pos1) {
+	public  LesPasswordField(int pos, int pos1) {
 		setPos(pos);
 		setPos1(pos1);
 		

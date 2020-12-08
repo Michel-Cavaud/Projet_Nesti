@@ -9,7 +9,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-public class MesLabel extends JLabel{
+public class LesLabel extends JLabel{
 	
 	/**
 	 * 
@@ -21,7 +21,7 @@ public class MesLabel extends JLabel{
 	private int pos1;
 	private String img;
 
-	public MesLabel(String texte, String img, int pos, int pos1) {
+	public LesLabel(String texte, String img, int pos, int pos1) {
 		setTexte(texte);
 		setImg(img);
 		setPos(pos);

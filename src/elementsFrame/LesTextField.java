@@ -6,7 +6,7 @@ import java.awt.Font;
 
 import javax.swing.JTextField;
 
-public class MesTextField extends JTextField{
+public class LesTextField extends JTextField{
 	
 	/**
 	 * 
@@ -15,7 +15,7 @@ public class MesTextField extends JTextField{
 	private int pos;
 	private int pos1;
 
-	public  MesTextField(int pos, int pos1) {
+	public  LesTextField(int pos, int pos1) {
 		setPos(pos);
 		setPos1(pos1);
 		

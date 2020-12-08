@@ -1,40 +1,32 @@
 package utilisateur;
 
 import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Font;
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.event.CaretListener;
 import elementsFrame.BlockInput;
-import elementsFrame.FrameDragListener;
+import elementsFrame.LesAvertissements;
 import elementsFrame.LesBoutons;
 import elementsFrame.LesBoutonsSortir;
 import elementsFrame.LesIconifies;
+import elementsFrame.LesLabelsTitres;
 import elementsFrame.LesLiens;
 import elementsFrame.LesMessages;
+import elementsFrame.LesPanels;
+import elementsFrame.LesFrames;
 import elementsFrame.PanelMdp;
 
 public class FrameModifierCompte{
 
 	
-	private JFrame frmModifierCompte;
-	JPanel panel_inscription;
-	JPanel panel_principal;
+	private LesFrames frmModifierCompte;
+	LesPanels panel_inscription;
+	LesPanels panel_principal;
 	LesMessages message;
-	JLabel lblNewLabel_1;
-	JLabel lblNewLabel_8;
-	JLabel lblNewLabel_10;
-	JLabel creerCompte;
 	PanelMdp panelMdp;
 	
 	private int posX = 0;  
@@ -75,24 +67,14 @@ public class FrameModifierCompte{
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frmModifierCompte = new JFrame();
-		frmModifierCompte.setTitle("Modifications");
-	
-		frmModifierCompte.setIconImage(Toolkit.getDefaultToolkit().getImage(FrameConnexion.class.getResource("/utilisateur/images/user.png")));
-		frmModifierCompte.setSize(660, 580);
-		frmModifierCompte.getContentPane().setLayout(null);
-		frmModifierCompte.setUndecorated(true);
-		frmModifierCompte.setLocationRelativeTo(null);
 		
-		FrameDragListener frameDragListener = new FrameDragListener(frmModifierCompte);
-		frmModifierCompte.addMouseListener(frameDragListener);
-		frmModifierCompte.addMouseMotionListener(frameDragListener);
+		frmModifierCompte = new LesFrames("Modifications", 660, 580);
 		
-		panel_principal = new JPanel();
-		panel_principal.setBounds(0, 0, 660, 580);
-		panel_principal.setBackground(new Color(194, 194, 194));
-		panel_principal.setLayout(null);
+		panel_principal = new LesPanels(0, 0, 660, 580);
 		frmModifierCompte.getContentPane().add(panel_principal);
+		
+		panel_inscription = new LesPanels(0, 53, 660, 540);
+		panel_principal.add(panel_inscription);
 	}
 	
 	private void sortir() {
@@ -106,29 +88,13 @@ public class FrameModifierCompte{
 	}
 	
 	private void titrePrincipal() {
-		JLabel lblNewLabel = new JLabel("NESTI");
-		lblNewLabel.setBounds(85, 10, 499, 40);
+		LesLabelsTitres lblNewLabel = new LesLabelsTitres("NESTI", 85, 10, 499, 40);
 		panel_principal.add(lblNewLabel);
-		lblNewLabel.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-		lblNewLabel.setForeground(new Color(98, 129, 159));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Tempus Sans ITC", Font.BOLD, 30));
 	}
 	
 	private void titre() {
-		panel_inscription = new JPanel();
-		panel_inscription.setBackground(new Color(194, 194, 194));
-		panel_inscription.setBorder(null);
-		panel_inscription.setBounds(0, 53, 660, 540);
-		panel_inscription.setLayout(null);
-		panel_principal.add(panel_inscription);
-		
-		lblNewLabel_1 = new JLabel("MODIFICATIONS INFORMATIONS");
-		lblNewLabel_1.setFont(new Font("Tempus Sans ITC", Font.BOLD, 30));
-		lblNewLabel_1.setForeground(new Color(98, 129, 159));
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(0, 5, 660, 40);
-		panel_inscription.add(lblNewLabel_1);	
+		LesLabelsTitres lblNewLabel_1 = new LesLabelsTitres("MODIFICATIONS INFORMATIONS", 0, 5, 660, 40);
+		panel_inscription.add(lblNewLabel_1);
 	}
 	
 	private void creerInput() {
@@ -158,20 +124,14 @@ public class FrameModifierCompte{
 	}
 	
 	private void panelForceMdp(){
-		
 		panelMdp = new PanelMdp(60, 280);
 		panel_inscription.add(panelMdp.getPanelMdp());
-		
-		
 	}
 	
 	private void avertissement() {
-		JLabel avertissement = new JLabel("* données obligatoires");
-		//message.setVisible(false);
-		avertissement.setHorizontalAlignment(SwingConstants.CENTER);
-		avertissement.setInheritsPopupMenu(false);
-		avertissement.setFont(new Font("Tempus Sans ITC", Font.BOLD, 15));
-		avertissement.setBounds(0, 250, 280, 32);
+		
+		
+		LesAvertissements avertissement = new LesAvertissements(250);
 		panel_inscription.add(avertissement);
 	}
 	
@@ -277,12 +237,10 @@ public class FrameModifierCompte{
 	}
 	
 	private void passageEnVisu() {
-		
 		listInput.get("pseudo").setText(user.getPseudo());
 		listInput.get("nom").setText(user.getNom());
 		listInput.get("prenom").setText(user.getPrenom());
 		listInput.get("ville").setText(user.getVille());
-		
 	}
 	
 	private void messageTexte(String texte) {
@@ -292,7 +250,6 @@ public class FrameModifierCompte{
 
 	CaretListener caretupdate = new CaretListener() {
         public void caretUpdate(javax.swing.event.CaretEvent e) {
-            
            boolean[] retours = Utilisateur.analyseMdp(((JTextField) e.getSource()).getText());
            int toutVert = 0;
            
@@ -336,14 +293,14 @@ public class FrameModifierCompte{
 	/**
 	 * @return the frmModifierCompte
 	 */
-	public JFrame getfrmModifierCompte() {
+	public LesFrames getfrmModifierCompte() {
 		return frmModifierCompte;
 	}
 
 	/**
 	 * @param frmModifierCompte the frmModifierCompte to set
 	 */
-	public void setfrmModifierCompte(JFrame frmModifierCompte) {
+	public void setfrmModifierCompte(LesFrames frmModifierCompte) {
 		this.frmModifierCompte = frmModifierCompte;
 	}
 

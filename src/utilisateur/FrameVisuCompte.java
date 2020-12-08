@@ -1,34 +1,24 @@
 package utilisateur;
 
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Font;
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import elementsFrame.BlockInput;
-import elementsFrame.FrameDragListener;
 import elementsFrame.LesBoutonsSortir;
 import elementsFrame.LesIconifies;
+import elementsFrame.LesLabelsTitres;
 import elementsFrame.LesLiens;
+import elementsFrame.LesPanels;
+import elementsFrame.LesFrames;
 
 
 public class FrameVisuCompte {
 	
-	private JFrame frmVisuCompte;
-	JPanel panel_inscription;
-	JPanel panel_principal;
-	JLabel message;
-	JLabel lblNewLabel_1;
-	JLabel lblNewLabel_8;
-	JLabel creerCompte;
+	private LesFrames frmVisuCompte;
+	LesPanels panel_inscription;
+	LesPanels panel_principal;
 	
 	private int posX = 0;  
     private int posY = 0;
@@ -71,29 +61,18 @@ public class FrameVisuCompte {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frmVisuCompte = new JFrame();
+		
+		frmVisuCompte = new LesFrames("Visualisation", 660, 360);
 		if(getUser() == null) {
 			frmVisuCompte.dispose();
 			new FrameConnexion().getFrmConnexion().setVisible(true); 
-		}else {
-			frmVisuCompte.setTitle("Visualisation");
 		}
-		frmVisuCompte.setIconImage(Toolkit.getDefaultToolkit().getImage(FrameConnexion.class.getResource("/utilisateur/images/user.png")));
-		frmVisuCompte.setSize(660, 360);
-		frmVisuCompte.getContentPane().setLayout(null);
-		frmVisuCompte.setUndecorated(true);
-		frmVisuCompte.setLocationRelativeTo(null);
 		
-		FrameDragListener frameDragListener = new FrameDragListener(frmVisuCompte);
-		frmVisuCompte.addMouseListener(frameDragListener);
-		frmVisuCompte.addMouseMotionListener(frameDragListener);
-		
-		panel_principal = new JPanel();
-		panel_principal.setBounds(0, 0, 660, 360);
-		panel_principal.setBackground(new Color(194, 194, 194));
-		panel_principal.setLayout(null);
+		panel_principal = new LesPanels(0, 0, 660, 360);
 		frmVisuCompte.getContentPane().add(panel_principal);
 		
+		panel_inscription = new LesPanels(0, 53, 660, 360);
+		panel_principal.add(panel_inscription);
 		
 	}
 	
@@ -108,29 +87,13 @@ public class FrameVisuCompte {
 	}
 	
 	private void titrePrincipal() {
-		JLabel lblNewLabel = new JLabel("NESTI");
-		lblNewLabel.setBounds(85, 10, 499, 40);
-		lblNewLabel.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-		lblNewLabel.setForeground(new Color(98, 129, 159));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Tempus Sans ITC", Font.BOLD, 30));
+		LesLabelsTitres lblNewLabel = new LesLabelsTitres("NESTI", 85, 10, 499, 40);
 		panel_principal.add(lblNewLabel);
 	}
 	
 	private void titre() {
-		panel_inscription = new JPanel();
-		panel_inscription.setBackground(new Color(194, 194, 194));
-		panel_inscription.setBorder(null);
-		panel_inscription.setBounds(0, 53, 660, 360);
-		panel_inscription.setLayout(null);
-		panel_principal.add(panel_inscription);
-		
-		lblNewLabel_1 = new JLabel("INFORMATIONS UTILISATEUR");
-		lblNewLabel_1.setFont(new Font("Tempus Sans ITC", Font.BOLD, 30));
-		lblNewLabel_1.setForeground(new Color(98, 129, 159));
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(0, 5, 660, 40);
-		panel_inscription.add(lblNewLabel_1);	
+		LesLabelsTitres lblNewLabel_1 = new LesLabelsTitres("INFORMATIONS UTILISATEUR", 0, 5, 660, 40);
+		panel_inscription.add(lblNewLabel_1);
 	}
 	
 	private void creerInput() {
@@ -173,13 +136,11 @@ public class FrameVisuCompte {
 	}
 	
 	private void passageEnVisu() {
-		
 		listInput.get("pseudo").setText(user.getPseudo());
 		listInput.get("email").setText(user.getEmail());
 		listInput.get("nom").setText(user.getNom());
 		listInput.get("prenom").setText(user.getPrenom());
 		listInput.get("ville").setText(user.getVille());
-		
 	}
 	
 	/**
@@ -199,14 +160,14 @@ public class FrameVisuCompte {
 	/**
 	 * @return the frmVisuCompte
 	 */
-	public JFrame getfrmVisuCompte() {
+	public LesFrames getfrmVisuCompte() {
 		return frmVisuCompte;
 	}
 
 	/**
 	 * @param frmVisuCompte the frmVisuCompte to set
 	 */
-	public void setfrmVisuCompte(JFrame frmVisuCompte) {
+	public void setfrmVisuCompte(LesFrames frmVisuCompte) {
 		this.frmVisuCompte = frmVisuCompte;
 	}
 

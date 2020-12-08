@@ -1,40 +1,33 @@
 package utilisateur;
 
 import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Font;
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.event.CaretListener;
 import elementsFrame.BlockInput;
-import elementsFrame.FrameDragListener;
+import elementsFrame.LesAvertissements;
 import elementsFrame.LesBoutons;
 import elementsFrame.LesBoutonsSortir;
 import elementsFrame.LesIconifies;
+import elementsFrame.LesLabelsTitres;
 import elementsFrame.LesLiens;
 import elementsFrame.LesMessages;
+import elementsFrame.LesPanels;
+import elementsFrame.LesFrames;
 import elementsFrame.PanelMdp;
 
 public class FrameCreerCompte {
 
 	
-	private JFrame frmCreerCompte;
-	JPanel panel_inscription;
-	JPanel panel_principal;
+	private LesFrames frmCreerCompte;
+	LesPanels panel_inscription;
+	LesPanels panel_principal;
 	LesMessages message;
-	JLabel lblNewLabel_1;
-	JLabel lblNewLabel_8;
-	JLabel creerCompte;
 	PanelMdp panelMdp;
 	
 	private int posX = 0;  
@@ -75,23 +68,14 @@ public class FrameCreerCompte {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frmCreerCompte = new JFrame();
-		frmCreerCompte.setTitle("Inscription");
-		frmCreerCompte.setIconImage(Toolkit.getDefaultToolkit().getImage(FrameConnexion.class.getResource("/utilisateur/images/user.png")));
-		frmCreerCompte.setSize(660, 540);
-		frmCreerCompte.getContentPane().setLayout(null);
-		frmCreerCompte.setUndecorated(true);
-		frmCreerCompte.setLocationRelativeTo(null);
 		
-		FrameDragListener frameDragListener = new FrameDragListener(frmCreerCompte);
-		frmCreerCompte.addMouseListener(frameDragListener);
-		frmCreerCompte.addMouseMotionListener(frameDragListener);
+		frmCreerCompte = new LesFrames("Inscriptions", 660, 540);
 		
-		panel_principal = new JPanel();
-		panel_principal.setBounds(0, 0, 660, 540);
-		panel_principal.setBackground(new Color(194, 194, 194));
-		panel_principal.setLayout(null);
+		panel_principal = new LesPanels(0, 0, 660, 540);
 		frmCreerCompte.getContentPane().add(panel_principal);
+		
+		panel_inscription = new LesPanels(0, 53, 660, 487);
+		panel_principal.add(panel_inscription);
 	}
 	
 	private void sortir() {
@@ -100,35 +84,18 @@ public class FrameCreerCompte {
 	}
 	
 	private void iconifie() {
-		
 		LesIconifies boutonIconifie = new LesIconifies(frmCreerCompte, 567);
 		panel_principal.add(boutonIconifie);
 	}
 	
 	private void titrePrincipal() {
-		JLabel lblNewLabel = new JLabel("NESTI");
-		lblNewLabel.setBounds(85, 10, 499, 40);
+		LesLabelsTitres lblNewLabel = new LesLabelsTitres("NESTI", 85, 10, 499, 40);
 		panel_principal.add(lblNewLabel);
-		lblNewLabel.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-		lblNewLabel.setForeground(new Color(98, 129, 159));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Tempus Sans ITC", Font.BOLD, 30));
 	}
 	
 	private void titre() {
-		panel_inscription = new JPanel();
-		panel_inscription.setBackground(new Color(194, 194, 194));
-		panel_inscription.setBorder(null);
-		panel_inscription.setBounds(0, 53, 660, 487);
-		panel_inscription.setLayout(null);
-		panel_principal.add(panel_inscription);
-		
-		lblNewLabel_1 = new JLabel("INSCRIPTION");
-		lblNewLabel_1.setFont(new Font("Tempus Sans ITC", Font.BOLD, 30));
-		lblNewLabel_1.setForeground(new Color(98, 129, 159));
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(0, 5, 660, 40);
-		panel_inscription.add(lblNewLabel_1);	
+		LesLabelsTitres lblNewLabel_1 = new LesLabelsTitres("INSCRIPTION", 0, 5, 660, 40);
+		panel_inscription.add(lblNewLabel_1);
 	}
 	
 	private void creerInput() {
@@ -162,12 +129,7 @@ public class FrameCreerCompte {
 	}
 	
 	private void avertissement() {
-		JLabel avertissement = new JLabel("* données obligatoires");
-		//message.setVisible(false);
-		avertissement.setHorizontalAlignment(SwingConstants.CENTER);
-		avertissement.setInheritsPopupMenu(false);
-		avertissement.setFont(new Font("Tempus Sans ITC", Font.BOLD, 15));
-		avertissement.setBounds(0, 320, 280, 32);
+		LesAvertissements avertissement = new LesAvertissements(320);
 		panel_inscription.add(avertissement);
 	}
 	
@@ -252,25 +214,11 @@ public class FrameCreerCompte {
 		}
 	}
 	
-	/*private void passageEnVisu() {
-		lblNewLabel_1.setText("MODIFICATIONS INFORMATIONS");
-		lblNewLabel_8.setText("MODIFIER");
-		creerCompte.setVisible(false);
-		
-		listInput.get("pseudo").setText(user.getPseudo());
-		listInput.get("email").setText(user.getEmail());
-		listInput.get("nom").setText(user.getNom());
-		listInput.get("prenom").setText(user.getPrenom());
-		listInput.get("ville").setText(user.getVille());
-		
-	}*/
-	
 	private void messageTexte(String texte) {
 		message.setText(texte);
 		message.setVisible(true);
 	}
 	
-
 	 CaretListener caretupdate = new CaretListener() {
          public void caretUpdate(javax.swing.event.CaretEvent e) {
              
@@ -317,14 +265,14 @@ public class FrameCreerCompte {
 	/**
 	 * @return the frmCreerCompte
 	 */
-	public JFrame getFrmCreerCompte() {
+	public LesFrames getFrmCreerCompte() {
 		return frmCreerCompte;
 	}
 
 	/**
 	 * @param frmCreerCompte the frmCreerCompte to set
 	 */
-	public void setFrmCreerCompte(JFrame frmCreerCompte) {
+	public void setFrmCreerCompte(LesFrames frmCreerCompte) {
 		this.frmCreerCompte = frmCreerCompte;
 	}
 
