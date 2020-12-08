@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import elementsSQL.RequetesSQL;
 import jbcrypt.BCrypt;
 
 
@@ -136,10 +138,10 @@ public class Utilisateur {
 			throw new Exception("connexion impossible");
 		}
 	
-		ResultSet resultat = requetesSQL.selectUsers();
-		
+		ResultSet resultat = requetesSQL.selectUsers(pseudo);
+		System.out.println(resultat);
 		while (resultat.next()) {
-			// & pseudo.equals(resultat.getString("pseudo")) | pseudo.equals(resultat.getString("email"))
+			
 			if(BCrypt.checkpw(mdp, resultat.getString("mdp")) & pseudo.equals(resultat.getString("pseudo")) | pseudo.equals(resultat.getString("email"))) {
 				HashMap<String, String> listDonneeUser = new HashMap<String, String>();
 				

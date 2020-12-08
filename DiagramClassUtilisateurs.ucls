@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.2.4" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
   realizations="true" associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
-  <class id="1" language="java" name="utilisateur.ConnexionSQL" project="Projet_Nesti" 
-    file="/Projet_Nesti/src/utilisateur/ConnexionSQL.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="1" language="java" name="elementsSQL.ConnexionSQL" project="Projet_Nesti" 
+    file="/Projet_Nesti/src/elementsSQL/ConnexionSQL.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1542" y="172"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -10,8 +10,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="utilisateur.RequetesSQL" project="Projet_Nesti" 
-    file="/Projet_Nesti/src/utilisateur/RequetesSQL.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="2" language="java" name="elementsSQL.RequetesSQL" project="Projet_Nesti" 
+    file="/Projet_Nesti/src/elementsSQL/RequetesSQL.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1274" y="123"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -64,8 +64,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="8" language="java" name="utilisateur.MesLabel" project="Projet_Nesti" 
-    file="/Projet_Nesti/src/utilisateur/MesLabel.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="8" language="java" name="elementsFrame.MesLabel" project="Projet_Nesti" 
+    file="/Projet_Nesti/src/elementsFrame/MesLabel.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="141" y="207"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -73,8 +73,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="9" language="java" name="utilisateur.MesPasswordField" project="Projet_Nesti" 
-    file="/Projet_Nesti/src/utilisateur/MesPasswordField.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="9" language="java" name="elementsFrame.MesPasswordField" project="Projet_Nesti" 
+    file="/Projet_Nesti/src/elementsFrame/MesPasswordField.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="655" y="389"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -91,8 +91,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="11" language="java" name="utilisateur.PanelMdp" project="Projet_Nesti" 
-    file="/Projet_Nesti/src/utilisateur/PanelMdp.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="11" language="java" name="elementsFrame.PanelMdp" project="Projet_Nesti" 
+    file="/Projet_Nesti/src/elementsFrame/PanelMdp.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1483" y="649"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -100,8 +100,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="12" language="java" name="utilisateur.BlockInput" project="Projet_Nesti" 
-    file="/Projet_Nesti/src/utilisateur/BlockInput.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="12" language="java" name="elementsFrame.BlockInput" project="Projet_Nesti" 
+    file="/Projet_Nesti/src/elementsFrame/BlockInput.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="392" y="224"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -109,8 +109,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="13" language="java" name="utilisateur.FrameDragListener" project="Projet_Nesti" 
-    file="/Projet_Nesti/src/utilisateur/FrameDragListener.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="13" language="java" name="elementsFrame.FrameDragListener" project="Projet_Nesti" 
+    file="/Projet_Nesti/src/elementsFrame/FrameDragListener.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="140" y="525"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      

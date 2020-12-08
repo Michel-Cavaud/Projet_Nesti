@@ -1,32 +1,27 @@
 package utilisateur;
 
-
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Image;
-import java.io.IOException;
 import java.util.HashMap;
-
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.JButton;
-import java.awt.Insets;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.ActionEvent;
 import java.awt.Font;
-import java.awt.Frame;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
+import elementsFrame.BlockInput;
+import elementsFrame.FrameDragListener;
+import elementsFrame.LesBoutons;
+import elementsFrame.LesBoutonsSortir;
+import elementsFrame.LesIconifies;
+import elementsFrame.LesLiens;
+import elementsFrame.LesMessages;
 
 import java.awt.Toolkit;
 
@@ -36,11 +31,15 @@ public class FrameConnexion {
 	JPanel panel_principal;
 	JPanel panel_connexion;
 	
-	JLabel message;
-	HashMap<String, JTextField> listInput = new HashMap<String, JTextField>();
+	LesMessages message;
 	Image img = null;
 	
-	private String messageText;
+	private HashMap<String, JTextField> listInput = new HashMap<String, JTextField>();
+	private String[] input = {"pseudo", "mdp"};
+	private String[] texteInput = {"Pseudo ou Email", "Mot de passe"};
+	private String[] imgInput = { "user", "mdp"};
+	private boolean[] password = {false, true,};
+	private int[] pos = {50, 120};
 	
 	Utilisateur user;
 
@@ -87,7 +86,7 @@ public class FrameConnexion {
 	private void titrePrincipal() {
 		panel_principal.setLayout(null);
 		JLabel lblNewLabel = new JLabel("NESTI");
-		lblNewLabel.setBounds(113, 11, 83, 40);
+		lblNewLabel.setBounds(95, 11, 182, 40);
 		lblNewLabel.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		lblNewLabel.setForeground(new Color(98, 129, 159));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -96,20 +95,8 @@ public class FrameConnexion {
 	}	
 	
 	private void iconifie() {
-		JLabel reduit = new JLabel("–");
-		reduit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		reduit.setHorizontalAlignment(SwingConstants.CENTER);
-		reduit.setBorder(null);
-		reduit.setBackground(new Color(240, 240, 240));
-		reduit.setFont(new Font("Tempus Sans ITC", Font.BOLD, 40));
-		reduit.addMouseListener(new MouseAdapter() {
-
-			public void mouseClicked(MouseEvent e) {
-				frmConnexion.setState(Frame.ICONIFIED);
-			}
-		});
-		reduit.setBounds(287, 12, 43, 31);
-		panel_principal.add(reduit);
+		LesIconifies boutonIconifie = new LesIconifies(frmConnexion, 287);
+		panel_principal.add(boutonIconifie);
 	}
 	
 	private void sortir() {
@@ -118,7 +105,6 @@ public class FrameConnexion {
 	}
 	
 	private void titre() {
-
 		panel_connexion = new JPanel();
 		panel_connexion.setBackground(new Color(194, 194, 194));
 		panel_connexion.setBorder(null);
@@ -136,50 +122,26 @@ public class FrameConnexion {
 	}
 	
 	private void creerInput() {
-		BlockInput pseudo = new BlockInput(false, "Pseudo ou Email", "user", 44, 50);
-		panel_connexion.add(pseudo.getBlock_1());
-		panel_connexion.add(pseudo.getBlock_2());
-		panel_connexion.add(pseudo.getBlock_3());
-		panel_connexion.add(pseudo.getBlock_4());
-		listInput.put("pseudo", pseudo.getBlock_3());
-		listInput.get("pseudo").addFocusListener(new FocusAdapter()
-        {
-            @Override
-            public void focusGained(FocusEvent e)
-            {
-            	listInput.get("pseudo").setBorder(null);
-            	listInput.get("mdp").setBorder(null);
-            }
-            public void focusLost(FocusEvent e)
-            {
-            }
-        });
-		
-		BlockInput mdp = new BlockInput(true, "Mot de passe", "mdp", 44, 120);
-		panel_connexion.add(mdp.getBlock_1());
-		panel_connexion.add(mdp.getBlock_2());
-		panel_connexion.add(mdp.getBlock_3p());
-		panel_connexion.add(mdp.getBlock_4());
-		listInput.put("mdp", mdp.getBlock_3p());
-		listInput.get("mdp").addFocusListener(new FocusAdapter()
-        {
-            @Override
-            public void focusGained(FocusEvent e)
-            {
-            	listInput.get("mdp").setBorder(null);
-            	listInput.get("pseudo").setBorder(null);
-            }
-            public void focusLost(FocusEvent e)
-            {
-            }
-        });
-
+		BlockInput inputObj;
+		for (int i = 0; i < input.length; i++) {
+			
+			inputObj = new BlockInput(password[i], texteInput[i], imgInput[i], 44,  pos[i]);
+			
+			panel_connexion.add(inputObj.getBlock_1());
+			panel_connexion.add(inputObj.getBlock_2());
+			
+			if(password[i]) {
+				listInput.put(input[i], inputObj.getBlock_3p());
+				panel_connexion.add(inputObj.getBlock_3p());
+			}else {
+				listInput.put(input[i], inputObj.getBlock_3());
+				panel_connexion.add(inputObj.getBlock_3());
+			}
+			panel_connexion.add(inputObj.getBlock_4());
+		}
 	}
 	private void message() {
-		message = new JLabel();
-		message.setHorizontalAlignment(SwingConstants.CENTER);
-		message.setFont(new Font("Tempus Sans ITC", Font.BOLD, 20));
-		message.setBounds(0, 200, 380, 32);
+		message = new LesMessages(200, 380);
 		panel_connexion.add(message);
 	}
 	
@@ -189,9 +151,11 @@ public class FrameConnexion {
 			public void mouseClicked(MouseEvent e) {
 				if (listInput.get("pseudo").getText().equals("")) {
 					listInput.get("pseudo").setBorder(new LineBorder(Color.RED));
+					message.setVisible(true);
 					message.setText("Il manque les données de connexion !");
 				}else if(listInput.get("mdp").getText().equals("")){
 					listInput.get("mdp").setBorder(new LineBorder(Color.RED));
+					message.setVisible(true);
 					message.setText("Il manque les données de connexion !");
 				}else {
 					listInput.get("mdp").setBorder(null);
@@ -234,21 +198,6 @@ public class FrameConnexion {
 		
 	}
 	
-	
-
-	/**
-	 * @return the messageText
-	 */
-	public String getMessageText() {
-		return messageText;
-	}
-
-	/**
-	 * @param messageText the messageText to set
-	 */
-	public void setMessageText(String messageText) {
-		this.messageText = messageText;
-	}
 
 	/**
 	 * @return the frmConnexion

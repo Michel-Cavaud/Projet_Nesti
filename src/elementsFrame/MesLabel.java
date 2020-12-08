@@ -1,4 +1,4 @@
-package utilisateur;
+package elementsFrame;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -34,7 +34,7 @@ public class MesLabel extends JLabel{
 		
 		if (getImg() != null) {
 			try {
-			    Image img2 = ImageIO.read(getClass().getResource("./images/" + getImg() + ".png"));
+			    Image img2 = ImageIO.read(getClass().getResource("../images/" + getImg() + ".png"));
 			    this.setIcon(new ImageIcon(img2));
 			} catch (IOException e1) {
 			    e1.printStackTrace();

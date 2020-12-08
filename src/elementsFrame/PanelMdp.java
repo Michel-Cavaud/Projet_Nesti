@@ -1,4 +1,4 @@
-package utilisateur;
+package elementsFrame;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -45,7 +45,7 @@ public class PanelMdp {
 			cocheKO8CaractMdp[i] = new JLabel("");
 			cocheKO8CaractMdp[i] .setBounds(10, 17 + (i * 18), 20, 20);
 			try {
-			    Image img2 = ImageIO.read(getClass().getResource("./images/komdp.png"));
+			    Image img2 = ImageIO.read(getClass().getResource("../images/komdp.png"));
 			    cocheKO8CaractMdp[i] .setIcon(new ImageIcon(img2));
 			} catch (IOException e1) {
 			    e1.printStackTrace();
@@ -55,7 +55,7 @@ public class PanelMdp {
 			cocheOK8CaractMdp[i] = new JLabel("");
 			cocheOK8CaractMdp[i].setBounds(10, 17 + (i * 18), 20, 20);
 			try {
-			    Image img2 = ImageIO.read(getClass().getResource("./images/okmdp.png"));
+			    Image img2 = ImageIO.read(getClass().getResource("../images/okmdp.png"));
 			    cocheOK8CaractMdp[i].setIcon(new ImageIcon(img2));
 			} catch (IOException e1) {
 			    e1.printStackTrace();

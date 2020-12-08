@@ -3,7 +3,6 @@ package utilisateur;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
-import java.awt.Frame;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
@@ -17,6 +16,14 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.event.CaretListener;
+import elementsFrame.BlockInput;
+import elementsFrame.FrameDragListener;
+import elementsFrame.LesBoutons;
+import elementsFrame.LesBoutonsSortir;
+import elementsFrame.LesIconifies;
+import elementsFrame.LesLiens;
+import elementsFrame.LesMessages;
+import elementsFrame.PanelMdp;
 
 public class FrameCreerCompte {
 
@@ -95,18 +102,6 @@ public class FrameCreerCompte {
 	private void iconifie() {
 		
 		LesIconifies boutonIconifie = new LesIconifies(frmCreerCompte, 567);
-		/*JLabel reduit = new JLabel("–");
-		reduit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		reduit.setHorizontalAlignment(SwingConstants.CENTER);
-		reduit.setBorder(null);
-		reduit.setBackground(new Color(240, 240, 240));
-		reduit.setFont(new Font("Tempus Sans ITC", Font.BOLD, 40));
-		reduit.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				frmCreerCompte.setState(Frame.ICONIFIED);
-			}
-		});
-		reduit.setBounds(567, 11, 43, 31);*/
 		panel_principal.add(boutonIconifie);
 	}
 	
@@ -177,7 +172,7 @@ public class FrameCreerCompte {
 	}
 	
 	private void message() {
-		message = new LesMessages(365);
+		message = new LesMessages(365, 660);
 		panel_inscription.add(message);
 	}
 	

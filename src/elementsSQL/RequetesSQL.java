@@ -1,8 +1,10 @@
-package utilisateur;
+package elementsSQL;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+
+import utilisateur.Utilisateur;
 
 public class RequetesSQL extends ConnexionSQL {
 
@@ -108,11 +110,11 @@ public class RequetesSQL extends ConnexionSQL {
 		return flag;
 	}
 	
-	public ResultSet selectUsers() {
+	public ResultSet selectUsers(String pseudo) {
 		ResultSet resultat = null;
 		try {
+			String query = "SELECT * FROM utilisateurs WHERE pseudo = '" + pseudo + "' OR email = '" + pseudo + "'";
 			Statement declaration = accessDataBase.createStatement();
-			String query = "SELECT * FROM utilisateurs;";
 			resultat = declaration.executeQuery(query);
 		} catch (Exception e) {
 			System.err.println("Erreur d'affichage d'ing: " + e.getMessage());

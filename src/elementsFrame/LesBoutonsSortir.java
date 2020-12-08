@@ -1,4 +1,4 @@
-package utilisateur;
+package elementsFrame;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -27,7 +27,7 @@ public class LesBoutonsSortir extends JLabel {
 		this.setBackground(new Color(194, 194, 194));
 		Image img = null;
 		try {
-			img = ImageIO.read(getClass().getResource("./images/sortir2.png"));
+			img = ImageIO.read(getClass().getResource("../images/sortir2.png"));
 			this.setIcon(new ImageIcon(img));
 		} catch (IOException e1) {
 			e1.printStackTrace();

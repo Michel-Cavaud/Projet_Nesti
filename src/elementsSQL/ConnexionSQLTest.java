@@ -1,4 +1,4 @@
-package utilisateur;
+package elementsSQL;
 
 import junit.framework.TestCase;
 

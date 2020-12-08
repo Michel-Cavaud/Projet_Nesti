@@ -1,10 +1,12 @@
-package utilisateur;
+package elementsFrame;
+
 
 import java.awt.Color;
 import java.awt.Font;
-import javax.swing.JPasswordField;
 
-public class MesPasswordField extends JPasswordField {
+import javax.swing.JTextField;
+
+public class MesTextField extends JTextField{
 	
 	/**
 	 * 
@@ -13,7 +15,7 @@ public class MesPasswordField extends JPasswordField {
 	private int pos;
 	private int pos1;
 
-	public  MesPasswordField(int pos, int pos1) {
+	public  MesTextField(int pos, int pos1) {
 		setPos(pos);
 		setPos1(pos1);
 		
@@ -52,6 +54,5 @@ public class MesPasswordField extends JPasswordField {
 	public void setPos(int pos) {
 		this.pos = pos;
 	}
-	
 
 }

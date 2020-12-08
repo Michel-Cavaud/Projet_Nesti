@@ -1,4 +1,4 @@
-package utilisateur;
+package elementsFrame;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -36,7 +36,7 @@ public class LesBoutons  extends JLabel{
 		labelImage.setBounds(pos1, pos2, pos3, 48);
 		Image img = null;
 		try {
-			img = ImageIO.read(getClass().getResource("./images/bouton.png"));
+			img = ImageIO.read(getClass().getResource("../images/bouton.png"));
 			labelImage.setIcon(new ImageIcon(img));
 		} catch (IOException e1) {
 			e1.printStackTrace();

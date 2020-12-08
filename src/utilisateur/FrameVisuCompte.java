@@ -3,24 +3,21 @@ package utilisateur;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
-import java.awt.Frame;
 import java.awt.Image;
-import java.awt.Insets;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
 import java.util.HashMap;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import elementsFrame.BlockInput;
+import elementsFrame.FrameDragListener;
+import elementsFrame.LesBoutonsSortir;
+import elementsFrame.LesIconifies;
+import elementsFrame.LesLiens;
 
 
 public class FrameVisuCompte {
@@ -101,43 +98,13 @@ public class FrameVisuCompte {
 	}
 	
 	private void sortir() {
-		JButton sortir = new JButton("");
-		sortir.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				frmVisuCompte.dispose();
-			}
-		});
-		sortir.setBorder(null);
-		sortir.setRequestFocusEnabled(false);
-		sortir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		sortir.setMargin(new Insets(0, 0, 0, 0));
-		sortir.setBounds(620, 11, 31, 31);
-		sortir.setBackground(new Color(194, 194, 194));
-		img = null;
-		try {
-			img = ImageIO.read(getClass().getResource("./images/sortir2.png"));
-			sortir.setIcon(new ImageIcon(img));
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		
-		panel_principal.add(sortir);
+		LesBoutonsSortir boutonsSortir = new LesBoutonsSortir(frmVisuCompte, 620);
+		panel_principal.add(boutonsSortir);
 	}
 	
 	private void iconifie() {
-		JLabel reduit = new JLabel("–");
-		reduit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		reduit.setHorizontalAlignment(SwingConstants.CENTER);
-		reduit.setBorder(null);
-		reduit.setBackground(new Color(240, 240, 240));
-		reduit.setFont(new Font("Tempus Sans ITC", Font.BOLD, 40));
-		reduit.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				frmVisuCompte.setState(Frame.ICONIFIED);
-			}
-		});
-		reduit.setBounds(567, 11, 43, 31);
-		panel_principal.add(reduit);
+		LesIconifies boutonIconifie = new LesIconifies(frmVisuCompte, 567);
+		panel_principal.add(boutonIconifie);
 	}
 	
 	private void titrePrincipal() {
@@ -194,19 +161,15 @@ public class FrameVisuCompte {
 	}
 	
 	private void lien() {
-		creerCompte = new JLabel("Modifier mes informations");
-		creerCompte.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		creerCompte.setFont(new Font("Tempus Sans ITC", Font.BOLD, 20));
-		creerCompte.setHorizontalAlignment(SwingConstants.CENTER);
-		creerCompte.setBounds(0, 270, 660, 32);
-		creerCompte.setForeground(new Color(98, 129, 159));
-		creerCompte.addMouseListener(new MouseAdapter() {
+		LesLiens lien = new LesLiens("Modifier mes informations", 270, 660);
+		lien.addMouseListener(new MouseAdapter() {
+
 			public void mouseClicked(MouseEvent e) {
 				new FrameModifierCompte(user).getfrmModifierCompte().setVisible(true);
-				frmVisuCompte.dispose();		
+				frmVisuCompte.dispose();
 			}
 		});
-		panel_inscription.add(creerCompte);
+		panel_inscription.add(lien);
 	}
 	
 	private void passageEnVisu() {
