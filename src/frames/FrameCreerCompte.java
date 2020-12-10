@@ -1,4 +1,4 @@
-package utilisateur;
+package frames;
 
 import java.awt.Color;
 import java.awt.Image;
@@ -20,6 +20,7 @@ import elementsFrame.LesMessages;
 import elementsFrame.LesPanels;
 import elementsFrame.LesFrames;
 import elementsFrame.PanelMdp;
+import utilisateur.Utilisateur;
 
 public class FrameCreerCompte {
 

@@ -1,4 +1,4 @@
-package utilisateur;
+package frames;
 
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -17,6 +17,7 @@ import elementsFrame.LesLabelsTitres;
 import elementsFrame.LesLiens;
 import elementsFrame.LesMessages;
 import elementsFrame.LesPanels;
+import utilisateur.Utilisateur;
 import elementsFrame.LesFrames;
 
 

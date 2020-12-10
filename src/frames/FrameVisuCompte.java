@@ -1,4 +1,4 @@
-package utilisateur;
+package frames;
 
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
@@ -11,6 +11,7 @@ import elementsFrame.LesIconifies;
 import elementsFrame.LesLabelsTitres;
 import elementsFrame.LesLiens;
 import elementsFrame.LesPanels;
+import utilisateur.Utilisateur;
 import elementsFrame.LesFrames;
 
 
