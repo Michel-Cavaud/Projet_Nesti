@@ -49,4 +49,4 @@ A rendre :
 </p>
 
 **Complément**
-<p><a href="https://github.com/Michel-Cavaud/Projet_Nesti/tree/master/Dossier%20de%20conception/DiagramDeClass"></a></p>
+<p><a href="https://github.com/Michel-Cavaud/Projet_Nesti/tree/master/Dossier%20de%20conception/DiagramDeClass">Les diagrammes de Class</a></p>
