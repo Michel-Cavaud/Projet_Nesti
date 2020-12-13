@@ -24,21 +24,22 @@ A rendre :
 - [Manuel d'utilisateur](https://github.com/Michel-Cavaud/Projet_Nesti/blob/master/Dossier%20de%20conception/Notice%20inscription%20NESTI.pdf)
 ## Les interfaces :
 - Inscription  
-<p align="center">
+- <p align="center">
   <img src="https://github.com/Michel-Cavaud/Projet_Nesti/blob/master/Dossier%20de%20conception/Images/Inscription%20compl%C3%A8te.png?raw=true" alt="Inscription"/>
 </p>
 - Connexion  
-<p align="center">
+- <p align="center">
   <img src="https://github.com/Michel-Cavaud/Projet_Nesti/blob/master/Dossier%20de%20conception/Images/Connexion.JPG?raw=true" alt="Connexion"/>
 </p>
 - Affichage des informations de l'utilisateur
-<p align="center">
+- <p align="center">
   <img src="https://github.com/Michel-Cavaud/Projet_Nesti/blob/master/Dossier%20de%20conception/Images/Visu_%20compl%C3%A8te.png?raw=true" alt="Affichage info"/>
 </p>
 - Modification des informations de l'utilisateur  
-<p align="center">
+- <p align="center">
   <img src="https://github.com/Michel-Cavaud/Projet_Nesti/blob/master/Dossier%20de%20conception/Images/Modification_erreur_mdp_actuel.JPG?raw=true" alt="Modification"/>
 </p>
 
 **Complément**
+*
 [Le dossier diagramme de class](https://github.com/Michel-Cavaud/Projet_Nesti/tree/master/Dossier%20de%20conception/DiagramDeClass)
