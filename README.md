@@ -23,6 +23,10 @@ A rendre :
  - [Le script de la base de données](https://github.com/Michel-Cavaud/Projet_Nesti/blob/master/Dossier%20de%20conception/Le%20dictionnaire%20de%20donn%C3%A9es.pdf)
  - [Des données utilisateurs valides](https://github.com/Michel-Cavaud/Projet_Nesti/blob/master/Dossier%20de%20conception/table_utilisateurs.sql)
  - [Manuel d'utilisateur](https://github.com/Michel-Cavaud/Projet_Nesti/blob/master/Dossier%20de%20conception/Notice%20inscription%20NESTI.pdf)
+ - [Jeu de données utilisateur](https://github.com/Michel-Cavaud/Projet_Nesti/blob/master/Dossier%20de%20conception/Jeu%20de%20donn%C3%A9es%20utilisateur.pdf)
+ - Tests unitaires
+  -- [Class connexion](https://github.com/Michel-Cavaud/Projet_Nesti/blob/master/src/elementsSQL/ConnexionSQLTest.java)
+  -- [Class utilisateur](https://github.com/Michel-Cavaud/Projet_Nesti/blob/master/src/utilisateur/UtilisateurTest.java)
 ## Les interfaces :
  - Inscription
 
