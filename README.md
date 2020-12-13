@@ -20,7 +20,8 @@ A rendre :
  - Manuel d'utilisateur présentant l'application terminée, il contient des captures d'écran des différentes fenêtres de l'application. Chaque capture d'écran doit avoir une légende. Vous devez utiliser un langage adapté à un utilisateur novice.
 ## Le travail rendu :
  - [La Maquette  et le  Storyboard](https://github.com/Michel-Cavaud/Projet_Nesti/blob/master/Dossier%20de%20conception/Projet%20NESTI%20Fil%20rouge.pdf) 
- - [Le script de la base de données, avec des données utilisateurs valides.](https://github.com/Michel-Cavaud/Projet_Nesti/blob/master/Dossier%20de%20conception/Le%20dictionnaire%20de%20donn%C3%A9es.pdf)  
+ - [Le script de la base de données](https://github.com/Michel-Cavaud/Projet_Nesti/blob/master/Dossier%20de%20conception/Le%20dictionnaire%20de%20donn%C3%A9es.pdf)
+ - [Des données utilisateurs valides](https://github.com/Michel-Cavaud/Projet_Nesti/blob/master/Dossier%20de%20conception/table_utilisateurs.sql)
  - [Manuel d'utilisateur](https://github.com/Michel-Cavaud/Projet_Nesti/blob/master/Dossier%20de%20conception/Notice%20inscription%20NESTI.pdf)
 ## Les interfaces :
  - Inscription
