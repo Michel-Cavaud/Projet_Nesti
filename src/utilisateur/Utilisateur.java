@@ -26,7 +26,7 @@ public class Utilisateur {
 	private  HashMap<String, Integer> listErreur = new HashMap<String, Integer>();
 	
 	//données de connexion à la base de données pour la table utilisateurs
-	private RequetesSQL requetesSQL = new RequetesSQL("163.172.232.206", "michel", "sqlmichel", "nesti");
+	private RequetesSQL requetesSQL = new RequetesSQL("163.172.232.206", "michelnesti", "c2Lrdhn0OlO3NtQD", "nesti");
 
 	/**
 	 * Vérifie les données d'incription de l'utilisateur avant l'ajout dans la base de données
