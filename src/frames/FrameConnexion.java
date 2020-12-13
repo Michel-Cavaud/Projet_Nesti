@@ -20,6 +20,11 @@ import elementsFrame.LesPanels;
 import utilisateur.Utilisateur;
 import elementsFrame.LesFrames;
 
+/**
+ * Cette class construit la fenetre de connexion
+ * @author CAVAUD
+ *
+ */
 
 public class FrameConnexion {
 
@@ -40,7 +45,7 @@ public class FrameConnexion {
 	Utilisateur user;
 
 	/**
-	 * Create the application.
+	 * l'ensemble de la construition de la fenetre
 	 */
 	public FrameConnexion() {
 		initialize();
@@ -55,47 +60,52 @@ public class FrameConnexion {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Contruction de la Frame
 	 */
 	private void initialize() {
-		
 		frmConnexion = new LesFrames("Connexion", 380, 370);
-		
 		panel_principal = new LesPanels(0, 0, 380, 370);
 		frmConnexion.getContentPane().add(panel_principal);
-		
 		panel_connexion = new LesPanels(0, 53, 380, 317);
 		panel_principal.add(panel_connexion);
 	}
+	/**
+	 * le titre de la fenetre
+	 */
 	private void titrePrincipal() {
 		LesLabelsTitres lblNewLabel = new LesLabelsTitres("NESTI", 95, 11, 182, 40);
 		panel_principal.add(lblNewLabel);
 	}	
-	
+	/**
+	 * L'icone pour mettre la fenetre en icone
+	 */
 	private void iconifie() {
 		LesIconifies boutonIconifie = new LesIconifies(frmConnexion, 287);
 		panel_principal.add(boutonIconifie);
 	}
-	
+	/**
+	 * L'icone pour fermer la fenetre
+	 */
 	private void sortir() {
 		LesBoutonsSortir boutonsSortir = new LesBoutonsSortir(frmConnexion, 340);
 		panel_principal.add(boutonsSortir);
 	}
-	
+	/**
+	 * Le titre de la fen^tre
+	 */
 	private void titre() {
 		LesLabelsTitres lblNewLabel_1 = new LesLabelsTitres("CONNEXION", 0, 10, 380, 40);
 		panel_connexion.add(lblNewLabel_1);
 	}
-	
+	/**
+	 * Création des zones de saisie de la fenetre
+	 */
 	private void creerInput() {
 		BlockInput inputObj;
 		for (int i = 0; i < input.length; i++) {
-			
 			inputObj = new BlockInput(password[i], texteInput[i], imgInput[i], 44,  pos[i]);
-			
 			panel_connexion.add(inputObj.getBlock_1());
 			panel_connexion.add(inputObj.getBlock_2());
-			
 			if(password[i]) {
 				listInput.put(input[i], inputObj.getBlock_3p());
 				panel_connexion.add(inputObj.getBlock_3p());
@@ -106,11 +116,16 @@ public class FrameConnexion {
 			panel_connexion.add(inputObj.getBlock_4());
 		}
 	}
+	/**
+	 * La zone de message d'erreur
+	 */
 	private void message() {
 		message = new LesMessages(200, 380);
 		panel_connexion.add(message);
 	}
-	
+	/**
+	 * Bouton de connexion
+	 */
 	private void boutonSubmit() {
 		LesBoutons connexion = new LesBoutons("CONNEXION", 0, 240, 380);
 		connexion.getLabelTexte().addMouseListener(new MouseAdapter() {
@@ -127,21 +142,17 @@ public class FrameConnexion {
 					listInput.get("mdp").setBorder(null);
 					listInput.get("pseudo").setBorder(null);
 					user = new Utilisateur();
-					System.out.println("coucou 1");
 					try {
 						user = user.chercherUser(listInput.get("pseudo").getText(), listInput.get("mdp").getText());	
 						if (user != null) {
-							System.out.println("coucou 2");
 							new FrameVisuCompte(user).getfrmVisuCompte().setVisible(true);
 							frmConnexion.dispose();					
 						}else {
-							System.out.println("coucou 3");
 							ImageIcon icon = new ImageIcon(getClass().getResource("../images/ko.png"));
 							JOptionPane.showMessageDialog(frmConnexion, "L'utilisateur n'est pas connue", "Erreur de connexion.", JOptionPane.WARNING_MESSAGE, icon);
 							message.setText(" ");
 						}
 					} catch (Exception e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				}
@@ -150,18 +161,18 @@ public class FrameConnexion {
 		panel_connexion.add(connexion.getLabelTexte());
 		panel_connexion.add(connexion.getLabelImage());
 	}
-	
+	/**
+	 * lien pour accéder à la création d'une compte
+	 */
 	private void lien() {
 		LesLiens lien = new LesLiens("Créer votre compte", 285, 380);
 		lien.addMouseListener(new MouseAdapter() {
-
 			public void mouseClicked(MouseEvent e) {
 				new FrameCreerCompte().getFrmCreerCompte().setVisible(true);
 				frmConnexion.dispose();
 			}
 		});
 		panel_connexion.add(lien);
-		
 	}
 
 	/**

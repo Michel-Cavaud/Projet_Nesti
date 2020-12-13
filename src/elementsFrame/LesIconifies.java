@@ -11,15 +11,21 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
+/**
+ * Construction des bouton pour réduire les fenêtres
+ * @author CAVAUD
+ *
+ */
 public class LesIconifies  extends JLabel {
-	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Le constructeur avec la position du bouton et la fenêtre à réduire
+	 * @param frmCreerCompte
+	 * @param pos
+	 */
 	public LesIconifies(JFrame frame, int pos) {
-		
 		this.setText("–");
 		this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		this.setHorizontalAlignment(SwingConstants.CENTER);

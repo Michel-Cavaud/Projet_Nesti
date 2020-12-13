@@ -11,15 +11,20 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-
-
+/**
+ * Construction des bouton de fermeture des fenêtres
+ * @author CAVAUD
+ *
+ */
 public class LesBoutonsSortir extends JLabel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Le constructeur avec la position du bouton et la fenêtre a fermer
+	 * @param frmCreerCompte
+	 * @param pos
+	 */
 	public LesBoutonsSortir(JFrame frmCreerCompte, int pos) {
 		this.setBorder(null);
 		this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));

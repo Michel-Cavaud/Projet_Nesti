@@ -21,9 +21,13 @@ import elementsFrame.LesFrames;
 import elementsFrame.PanelMdp;
 import utilisateur.Utilisateur;
 
+/**
+ * Cette class construit la fenêtre de modification du compte utilisateur
+ * Elle reçoit un utilisateur comme paramètre
+ * @author CAVAUD
+ *
+ */
 public class FrameModifierCompte{
-
-	
 	private LesFrames frmModifierCompte;
 	LesPanels panel_inscription;
 	LesPanels panel_principal;
@@ -45,7 +49,8 @@ public class FrameModifierCompte{
 	Image img = null;
 
 	/**
-	 * Create the application.
+	 * Construction de la fenêtre
+	 * @param user  Un utilisateur connecté en paramètre
 	 */
 	public FrameModifierCompte(Utilisateur user) {
 		setUser(user);
@@ -61,43 +66,56 @@ public class FrameModifierCompte{
 		boutonSubmitMdp();
 		boutonSubmitInfo();
 		lien();;
-		passageEnVisu();
+		if(getUser()!= null) {
+			passageEnVisu();
+		}else {
+			frmModifierCompte.dispose();
+			new FrameConnexion().getFrmConnexion().setVisible(true);  
+		}
 	}
-
 	/**
-	 * Initialize the contents of the frame.
+	 * Construction de la Frame
 	 */
 	private void initialize() {
-		
 		frmModifierCompte = new LesFrames("Modifications", 660, 580);
-		
 		panel_principal = new LesPanels(0, 0, 660, 580);
 		frmModifierCompte.getContentPane().add(panel_principal);
-		
 		panel_inscription = new LesPanels(0, 53, 660, 540);
 		panel_principal.add(panel_inscription);
 	}
-	
+	/**
+	 * Bouton de sortie de la fenêtre
+	 */
 	private void sortir() {
 		LesBoutonsSortir boutonsSortir = new LesBoutonsSortir(frmModifierCompte, 620);
 		panel_principal.add(boutonsSortir);
 	}
-	
+	/**
+	 * Bouton pour mettre la fenêtre en icone
+	 */
 	private void iconifie() {
 		LesIconifies boutonIconifie = new LesIconifies(frmModifierCompte, 567);
 		panel_principal.add(boutonIconifie);
 	}
 	
+	/**
+	 * Titre principal
+	 */
 	private void titrePrincipal() {
 		LesLabelsTitres lblNewLabel = new LesLabelsTitres("NESTI", 85, 10, 499, 40);
 		panel_principal.add(lblNewLabel);
 	}
-	
+	/**
+	 * Titre de la fenêtre
+	 */
 	private void titre() {
 		LesLabelsTitres lblNewLabel_1 = new LesLabelsTitres("MODIFICATIONS INFORMATIONS", 0, 5, 660, 40);
 		panel_inscription.add(lblNewLabel_1);
 	}
 	
+	/**
+	 * Créer les entrées utilisateur
+	 */
 	private void creerInput() {
 		BlockInput inputObj;
 		for (int i = 0; i < input.length; i++) {
@@ -106,7 +124,6 @@ public class FrameModifierCompte{
 			}else {
 				inputObj = new BlockInput(password[i], texteInput[i], imgInput[i], 345,  pos[i]);
 			}
-			
 			panel_inscription.add(inputObj.getBlock_1());
 			panel_inscription.add(inputObj.getBlock_2());
 			
@@ -123,24 +140,30 @@ public class FrameModifierCompte{
 		//Vérification MDP a chaque frappe
 		listInput.get("mdp").addCaretListener(caretupdate);
 	}
-	
+	/**
+	 * le cadre de force du mot de passe
+	 */
 	private void panelForceMdp(){
 		panelMdp = new PanelMdp(60, 280);
 		panel_inscription.add(panelMdp.getPanelMdp());
 	}
-	
+	/**
+	 * L'avertissement données obligatoire
+	 */
 	private void avertissement() {
-		
-		
 		LesAvertissements avertissement = new LesAvertissements(250);
 		panel_inscription.add(avertissement);
 	}
-	
+	/**
+	 * La zone de message d'erreur
+	 */
 	private void message() {
 		message = new LesMessages(450, 660);
 		panel_inscription.add(message);
 	}
-	
+	/**
+	 * Bouton validation nouveau mot de passe
+	 */
 	private void boutonSubmitMdp() {
 		LesBoutons connexionMdp = new LesBoutons("MODIFIER MDP", 40, 400, 290);
 		connexionMdp.getLabelTexte().addMouseListener(new MouseAdapter() {
@@ -149,7 +172,7 @@ public class FrameModifierCompte{
 				for(int i = 0; i < input.length; i++) {
 					listInput.get(input[i]).setBorder(null);
 				}
-				//cahe les messages
+				//cache les messages
 				message.setVisible(false);
 				verifierSaisieMdp();
 			}
@@ -158,6 +181,9 @@ public class FrameModifierCompte{
 		panel_inscription.add(connexionMdp.getLabelImage());
 	}
 	
+	/**
+	 * Bouton validation données utilisateur
+	 */
 	private void boutonSubmitInfo() {
 		LesBoutons connexion = new LesBoutons("MODIFIER", 350, 340, 310);
 		connexion.getLabelTexte().addMouseListener(new MouseAdapter() {
@@ -175,6 +201,9 @@ public class FrameModifierCompte{
 		panel_inscription.add(connexion.getLabelImage());
 	}
 	
+	/**
+	 * Lien pour ouvrir la fenêtre information utilisateur
+	 */
 	private void lien() {
 		LesLiens lien = new LesLiens("Voir mes informations", 480, 660);
 		lien.addMouseListener(new MouseAdapter() {
@@ -186,6 +215,9 @@ public class FrameModifierCompte{
 		panel_inscription.add(lien);
 	}
 	
+	/**
+	 * Vérification saisie utilisateur pour le mot de passe
+	 */
 	private void verifierSaisieMdp() {
 		if (listInput.get("mdpa").getText().equals("")){
 			messageTexte("Merci d'indiquer votre mot de passe actuel !");
@@ -215,9 +247,11 @@ public class FrameModifierCompte{
 			} 
 		}
 	}
-	 
+	
+	/**
+	 * Vérification saisie utilisateur pour les info
+	 */
 	private void verifierSaisieInfo() {
-		
 		if (listInput.get("pseudo").getText().equals("")){
 			messageTexte("Merci d'indiquer un pseudo !");
 			listInput.get("pseudo").setBorder(new LineBorder(Color.RED));
@@ -226,7 +260,6 @@ public class FrameModifierCompte{
 			user.setNom(listInput.get("nom").getText());
 			user.setPrenom(listInput.get("prenom").getText());
 			user.setVille(listInput.get("ville").getText());
-		
 			try {
 				user.creerUpdateUserSql();
 				new FrameVisuCompte(user).getfrmVisuCompte().setVisible(true);
@@ -237,6 +270,9 @@ public class FrameModifierCompte{
 		}	
 	}
 	
+	/**
+	 * Pour mettre les info déjà existante dans les entrées
+	 */
 	private void passageEnVisu() {
 		listInput.get("pseudo").setText(user.getPseudo());
 		listInput.get("nom").setText(user.getNom());
@@ -244,35 +280,37 @@ public class FrameModifierCompte{
 		listInput.get("ville").setText(user.getVille());
 	}
 	
+	/**
+	 * Les message d'erreur
+	 * @param texte du message
+	 */
 	private void messageTexte(String texte) {
 		message.setText(texte);
 		message.setVisible(true);
 	}
 
+	/**
+	 * Lecture de la zone du mot de passe à chaque entrée utilisateur
+	 */
 	CaretListener caretupdate = new CaretListener() {
         public void caretUpdate(javax.swing.event.CaretEvent e) {
            boolean[] retours = Utilisateur.analyseMdp(((JTextField) e.getSource()).getText());
            int toutVert = 0;
-           
            for (int i = 0; i < retours.length; i++) {
-           	
-           	panelMdp.getCocheKO8CaractMdp()[i].setVisible(!retours[i]);
-           	panelMdp.getCocheOK8CaractMdp()[i].setVisible(retours[i]);
-           	
-           	if(retours[i]) {
-           		panelMdp.getLabelCaractMdp()[i].setForeground(new Color(46, 139, 87));
-           		toutVert++;
-           	}else {
-           		panelMdp.getLabelCaractMdp()[i].setForeground(Color.RED);
-           	}
+        	   panelMdp.getCocheKO8CaractMdp()[i].setVisible(!retours[i]);
+        	   panelMdp.getCocheOK8CaractMdp()[i].setVisible(retours[i]);
+           		if(retours[i]) {
+           			panelMdp.getLabelCaractMdp()[i].setForeground(new Color(46, 139, 87));
+           			toutVert++;
+           		}else {
+           			panelMdp.getLabelCaractMdp()[i].setForeground(Color.RED);
+           		}
            }
-
-			if(toutVert == 5) {
-           	panelMdp.getPanelMdp().setBorder(new LineBorder(new Color(46, 139, 87)));
+           if(toutVert == 5) {
+           		panelMdp.getPanelMdp().setBorder(new LineBorder(new Color(46, 139, 87)));
            }else {
-           	panelMdp.getPanelMdp().setBorder(new LineBorder(Color.RED));
-           }
-           
+        	   panelMdp.getPanelMdp().setBorder(new LineBorder(Color.RED));
+           } 
         }
     };
 	

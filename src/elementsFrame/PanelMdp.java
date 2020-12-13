@@ -12,6 +12,11 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
+/**
+ * Cette class construit la zone de force du mot de passe 
+ * @author CAVAUD
+ *
+ */
 public class PanelMdp {
 		private JPanel panelMdp;
 		private JLabel labelTitreMdp;
@@ -20,14 +25,17 @@ public class PanelMdp {
 		private JLabel[] cocheOK8CaractMdp = new JLabel[5];
 		private String[] texteLabel = {"Au moins 8 caractères", "Au moins 1 chiffre", "Au moins une minuscule", "Au moins une MAJUSCULE", "Au moins un : & # - + ! $ @ % "};
 	
-	public PanelMdp(int x, int y) {
-		
+	/**
+	 * Le constructeur reçoit la position de la zone
+	 * @param x
+	 * @param y
+	 */
+	public PanelMdp(int x, int y) {	
 		panelMdp = new JPanel();
 		panelMdp.setBorder(new LineBorder(Color.RED));
 		panelMdp.setBounds(x, y, 250, 113);
 		panelMdp.setLayout(null);
 		panelMdp.setBackground(new Color(194, 194, 194));
-		
 		
 		labelTitreMdp = new JLabel("Force du mot de passe");
 		labelTitreMdp.setFont(new Font("Tempus Sans ITC", Font.BOLD, 16));
@@ -63,9 +71,6 @@ public class PanelMdp {
 			cocheOK8CaractMdp[i].setVisible(false);
 			panelMdp.add(cocheOK8CaractMdp[i]);
 		}
-
-		
-		
 	}
 
 	/**

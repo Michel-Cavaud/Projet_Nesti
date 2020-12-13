@@ -9,11 +9,13 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+/**
+ * Cette class construit des zones de texte avec ou sans une image de fond
+ * @author CAVAUD
+ *
+ */
 public class LesLabel extends JLabel{
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	private String texte;
@@ -21,6 +23,13 @@ public class LesLabel extends JLabel{
 	private int pos1;
 	private String img;
 
+	/**
+	 * Le constructeur avec le texte de la zone, l'image si besoin, et la position
+	 * @param texte
+	 * @param img
+	 * @param pos
+	 * @param pos1
+	 */
 	public LesLabel(String texte, String img, int pos, int pos1) {
 		setTexte(texte);
 		setImg(img);
@@ -31,7 +40,6 @@ public class LesLabel extends JLabel{
 		this.setFont(new Font("Tempus Sans ITC", Font.BOLD, 18));
 		this.setForeground(new Color(98, 129, 159));
 		this.setBounds(getPos(), getPos1(), 250, 45);
-		
 		if (getImg() != null) {
 			try {
 			    Image img2 = ImageIO.read(getClass().getResource("../images/" + getImg() + ".png"));

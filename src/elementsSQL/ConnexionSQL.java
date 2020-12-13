@@ -3,21 +3,35 @@ package elementsSQL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-
-public class ConnexionSQL  {
+/**
+ * Cette class ouvre et ferme la connection à la base de données
+ * En abstract elle est intencier par une class fiche 
+ * @author CAVAUD
+ *
+ */
+abstract class ConnexionSQL  {
 	static Connection accessDataBase = null;
-	
 	private String url;
 	private String login;
 	private String mdp;
 	private String bdd;
 	
+	/**
+	 * Constructeur de la class 
+	 * @param url
+	 * @param login
+	 * @param mdp
+	 * @param bdd
+	 */
 	public ConnexionSQL(String url, String login, String mdp, String bdd){
 			setUrl("jdbc:mysql://" + url +"/" + bdd);
 			setLogin(login);
 			setMdp(mdp);
 	}
-	
+	/**
+	 * Ouvrir une connexion
+	 * @throws Exception
+	 */
 	public void openConnection() throws Exception {
 		if(!testConnection()) {
 			try {
@@ -27,7 +41,11 @@ public class ConnexionSQL  {
 			}
 		}
 	}
-	
+	/**
+	 * Teste si la connexion est ouverte
+	 * @return true si connexion existe sinon false 
+	 * @throws Exception
+	 */
 	public boolean testConnection() throws Exception {
 		boolean flag = false;
 		try {
@@ -42,6 +60,10 @@ public class ConnexionSQL  {
 		return flag;
 	}
 	
+	/**
+	 * Fermeture de la connexion
+	 * @throws Exception
+	 */
 	public void closeConnection() throws Exception {
 		if (accessDataBase != null) {
 			try {
@@ -52,6 +74,7 @@ public class ConnexionSQL  {
 		}
 	}
 
+	
 
 	/**
 	 * @return the bdd
@@ -101,8 +124,6 @@ public class ConnexionSQL  {
 	public String getMdp() {
 		return mdp;
 	}
-
-
 
 	/**
 	 * @param mdp the mdp to set

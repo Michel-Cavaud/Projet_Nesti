@@ -6,11 +6,19 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JFrame;
 
+/**
+ * Cette class permet d'attraper les fenêtres afin de les déplacer 
+ * @author CAVAUD
+ *
+ */
 public class FrameDragListener extends MouseAdapter {
-
 	private final JFrame frame;
     private Point mouseDownCompCoords = null;
 
+    /**
+     * Le constructeur recoit la fenêtre en paramètre
+     * @param frame
+     */
     public FrameDragListener(JFrame frame) {
         this.frame = frame;
     }

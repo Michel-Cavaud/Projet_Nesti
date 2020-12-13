@@ -22,9 +22,13 @@ import elementsFrame.LesFrames;
 import elementsFrame.PanelMdp;
 import utilisateur.Utilisateur;
 
-public class FrameCreerCompte {
+/**
+ * Cette class construit le fenêtre d'inscription de l'utilisateur
+ * @author CAVAUD
+ *
+ */
 
-	
+public class FrameCreerCompte {
 	private LesFrames frmCreerCompte;
 	LesPanels panel_inscription;
 	LesPanels panel_principal;
@@ -46,10 +50,9 @@ public class FrameCreerCompte {
 	Image img = null;
 
 	/**
-	 * Create the application.
+	 * Construction de la fenêtre
 	 */
-	public FrameCreerCompte() {
-		
+	public FrameCreerCompte() {	
 		initialize();
 		titrePrincipal();
 		iconifie();
@@ -63,42 +66,48 @@ public class FrameCreerCompte {
 		lien();
 	}
 
-	
-
 	/**
-	 * Initialize the contents of the frame.
+	 * La Frame
 	 */
-	private void initialize() {
-		
+	private void initialize() {	
 		frmCreerCompte = new LesFrames("Inscriptions", 660, 540);
-		
 		panel_principal = new LesPanels(0, 0, 660, 540);
 		frmCreerCompte.getContentPane().add(panel_principal);
-		
 		panel_inscription = new LesPanels(0, 53, 660, 487);
 		panel_principal.add(panel_inscription);
 	}
-	
+	/**
+	 * Bouton fermeture de la fen^tre
+	 */
 	private void sortir() {
 		LesBoutonsSortir boutonsSortir = new LesBoutonsSortir(frmCreerCompte, 620);
 		panel_principal.add(boutonsSortir);
 	}
-	
+	/**
+	 * Bouton pour réduire le fenêtre en icone
+	 */
 	private void iconifie() {
 		LesIconifies boutonIconifie = new LesIconifies(frmCreerCompte, 567);
 		panel_principal.add(boutonIconifie);
 	}
-	
+	/**
+	 * Affichage titre principal
+	 */
 	private void titrePrincipal() {
 		LesLabelsTitres lblNewLabel = new LesLabelsTitres("NESTI", 85, 10, 499, 40);
 		panel_principal.add(lblNewLabel);
 	}
-	
+	/**
+	 * Affichage titre
+	 */
 	private void titre() {
 		LesLabelsTitres lblNewLabel_1 = new LesLabelsTitres("INSCRIPTION", 0, 5, 660, 40);
 		panel_inscription.add(lblNewLabel_1);
 	}
 	
+	/**
+	 * Création des saisies pour l'utilisateur
+	 */
 	private void creerInput() {
 		BlockInput inputObj;
 		for (int i = 0; i < input.length; i++) {
@@ -107,10 +116,8 @@ public class FrameCreerCompte {
 			}else {
 				inputObj = new BlockInput(password[i], texteInput[i], imgInput[i], 345,  pos[i]);
 			}
-			
 			panel_inscription.add(inputObj.getBlock_1());
 			panel_inscription.add(inputObj.getBlock_2());
-			
 			if(password[i]) {
 				listInput.put(input[i], inputObj.getBlock_3p());
 				panel_inscription.add(inputObj.getBlock_3p());
@@ -123,22 +130,30 @@ public class FrameCreerCompte {
 		//Vérification MDP a chaque frappe
 		listInput.get("mdp").addCaretListener(caretupdate);
 	}
-	
+	/**
+	 * Panneau de force du mot de passe
+	 */
 	private void panelForceMdp(){
 		panelMdp = new PanelMdp(320, 247);
 		panel_inscription.add(panelMdp.getPanelMdp());
 	}
-	
+	/**
+	 *  Affichage information obligatoire
+	 */
 	private void avertissement() {
 		LesAvertissements avertissement = new LesAvertissements(320);
 		panel_inscription.add(avertissement);
 	}
-	
+	/**
+	 * Les messages d'erreur de saisie
+	 */
 	private void message() {
 		message = new LesMessages(365, 660);
 		panel_inscription.add(message);
 	}
-	
+	/**
+	 * Bouton création compte
+	 */
 	private void boutonSubmit() {
 		LesBoutons connexion = new LesBoutons("INSCRIPTION",0, 400, 660);
 		connexion.getLabelTexte().addMouseListener(new MouseAdapter() {
@@ -155,7 +170,9 @@ public class FrameCreerCompte {
 		panel_inscription.add(connexion.getLabelTexte());
 		panel_inscription.add(connexion.getLabelImage());
 	}
-	
+	/**
+	 * Lien pour aller à la fenêtre de connexion
+	 */
 	private void lien() {
 		LesLiens lien = new LesLiens("Vous avez déjà un compte", 450, 660);
 		lien.addMouseListener(new MouseAdapter() {
@@ -166,39 +183,32 @@ public class FrameCreerCompte {
 		});
 		panel_inscription.add(lien);
 	}
-	
-	 
+	/*
+	 * Vérification des saisies et envoie des info à la class utilisateur pour création d'un utilisateur et l'ajout dans la base de donnée
+	 * Sinon affichage des erreurs
+	 */
 	private void verifierSaisie() {
 		if(!listInput.get("mdp").getText().equals(listInput.get("mdp1").getText())){
 			listInput.get("mdp").setBorder(new LineBorder(Color.RED));
 			listInput.get("mdp1").setBorder(new LineBorder(Color.RED));
 			messageTexte("Les mots de passe sont différents !");
-		}else {
-			
+		}else {		
 			user = new Utilisateur();
-			
 			HashMap<String, String> listDonneeUser = new HashMap<String, String>();
-			
-			System.out.println(listInput.get("pseudo").getText());
-			
 			listDonneeUser.put("pseudo", listInput.get("pseudo").getText());
 			listDonneeUser.put("email", listInput.get("email").getText());
 			listDonneeUser.put("mdp", listInput.get("mdp").getText());
 			listDonneeUser.put("nom", listInput.get("nom").getText());
 			listDonneeUser.put("prenom", listInput.get("prenom").getText());
 			listDonneeUser.put("ville", listInput.get("ville").getText());
-			
 			try {
 				user.ajouterModifierUtilisateur(listDonneeUser);
 			} catch (Exception e) {	
 				for (Map.Entry<String, Integer> mapentry : user.getListErreur().entrySet()) {
 					listInput.get(mapentry.getKey()).setBorder(new LineBorder(Color.RED));
-					
-					System.out.println("clé: " + mapentry.getKey() + " | valeur: " + mapentry.getValue());
 				}
 				messageTexte("Erreurs dans la saisie des données !");
 			}
-			
 			if(user.getListErreur().isEmpty()) {
 				try {
 					user.creerUpdateUserSql();
@@ -215,22 +225,25 @@ public class FrameCreerCompte {
 		}
 	}
 	
+	/**
+	 * Affichage message d'erreur
+	 * @param texte
+	 */
 	private void messageTexte(String texte) {
 		message.setText(texte);
 		message.setVisible(true);
 	}
 	
+	/**
+	 * Vérification de la saisie du mot de passe a chaque caractère pour indiquer la force du mot de passe
+	 */
 	 CaretListener caretupdate = new CaretListener() {
          public void caretUpdate(javax.swing.event.CaretEvent e) {
-             
             boolean[] retours = Utilisateur.analyseMdp(((JTextField) e.getSource()).getText());
             int toutVert = 0;
-            
             for (int i = 0; i < retours.length; i++) {
-            	
             	panelMdp.getCocheKO8CaractMdp()[i].setVisible(!retours[i]);
             	panelMdp.getCocheOK8CaractMdp()[i].setVisible(retours[i]);
-            	
             	if(retours[i]) {
             		panelMdp.getLabelCaractMdp()[i].setForeground(new Color(46, 139, 87));
             		toutVert++;
@@ -238,16 +251,13 @@ public class FrameCreerCompte {
             		panelMdp.getLabelCaractMdp()[i].setForeground(Color.RED);
             	}
             }
-
 			if(toutVert == 5) {
             	panelMdp.getPanelMdp().setBorder(new LineBorder(new Color(46, 139, 87)));
             }else {
             	panelMdp.getPanelMdp().setBorder(new LineBorder(Color.RED));
             }
-            
          }
      };
-
 	
 	/**
 	 * @return the user

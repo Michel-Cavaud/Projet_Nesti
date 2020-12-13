@@ -13,10 +13,12 @@ import elementsFrame.LesLiens;
 import elementsFrame.LesPanels;
 import utilisateur.Utilisateur;
 import elementsFrame.LesFrames;
-
-
-public class FrameVisuCompte {
-	
+/**
+ * Cette class créée la fenêtre de visualisation des donnée utilisateur
+ * @author CAVAUD
+ *
+ */
+public class FrameVisuCompte {	
 	private LesFrames frmVisuCompte;
 	LesPanels panel_inscription;
 	LesPanels panel_principal;
@@ -35,10 +37,9 @@ public class FrameVisuCompte {
 	
 	Image img = null;
 
-	
-	
 	/**
-	 * Create the application.
+	 * Construction de la fenêtre
+	 * @param user Un utilisateur connecté en paramètre
 	 */
 	public FrameVisuCompte(Utilisateur user) {
 		setUser(user);
@@ -48,55 +49,60 @@ public class FrameVisuCompte {
 		sortir();
 		titre();
 		creerInput();
-		
 		lien();
 		if(getUser()!= null) {
 			passageEnVisu();
+		}else {
+			frmVisuCompte.dispose();
+			new FrameConnexion().getFrmConnexion().setVisible(true);  
 		}
-		
 	}
-
-	
-
 	/**
-	 * Initialize the contents of the frame.
+	 * Construction de la Frame
 	 */
 	private void initialize() {
-		
 		frmVisuCompte = new LesFrames("Visualisation", 660, 360);
 		if(getUser() == null) {
 			frmVisuCompte.dispose();
 			new FrameConnexion().getFrmConnexion().setVisible(true); 
 		}
-		
 		panel_principal = new LesPanels(0, 0, 660, 360);
 		frmVisuCompte.getContentPane().add(panel_principal);
-		
 		panel_inscription = new LesPanels(0, 53, 660, 360);
 		panel_principal.add(panel_inscription);
 		
 	}
-	
+	/**
+	 * Bouton de sortie de la fenêtre
+	 */
 	private void sortir() {
 		LesBoutonsSortir boutonsSortir = new LesBoutonsSortir(frmVisuCompte, 620);
 		panel_principal.add(boutonsSortir);
 	}
-	
+	/**
+	 * Bouton pour mettre la fenêtre en icone
+	 */
 	private void iconifie() {
 		LesIconifies boutonIconifie = new LesIconifies(frmVisuCompte, 567);
 		panel_principal.add(boutonIconifie);
 	}
-	
+	/**
+	 * Titre principal
+	 */
 	private void titrePrincipal() {
 		LesLabelsTitres lblNewLabel = new LesLabelsTitres("NESTI", 85, 10, 499, 40);
 		panel_principal.add(lblNewLabel);
 	}
-	
+	/**
+	 * Titre de la fenêtre
+	 */
 	private void titre() {
 		LesLabelsTitres lblNewLabel_1 = new LesLabelsTitres("INFORMATIONS UTILISATEUR", 0, 5, 660, 40);
 		panel_inscription.add(lblNewLabel_1);
 	}
-	
+	/**
+	 * Créer les entrées utilisateur
+	 */
 	private void creerInput() {
 		BlockInput inputObj;
 		for (int i = 0; i < input.length; i++) {
@@ -105,29 +111,25 @@ public class FrameVisuCompte {
 			}else {
 				inputObj = new BlockInput(password[i], texteInput[i], imgInput[i], 345,  pos[i]);
 			}
-			
 			panel_inscription.add(inputObj.getBlock_1());
 			panel_inscription.add(inputObj.getBlock_2());
-			
 			if(password[i]) {
 				listInput.put(input[i], inputObj.getBlock_3p());
 				panel_inscription.add(inputObj.getBlock_3p());
 			}else {
 				listInput.put(input[i], inputObj.getBlock_3());
 				inputObj.getBlock_3().setEditable(false);  
-				
 				panel_inscription.add(inputObj.getBlock_3());
 			}
-			
 			panel_inscription.add(inputObj.getBlock_4());
 		}
-
 	}
-	
+	/**
+	 * Lien pour ouvrir la fenêtre dodification utilisateur
+	 */
 	private void lien() {
 		LesLiens lien = new LesLiens("Modifier mes informations", 270, 660);
 		lien.addMouseListener(new MouseAdapter() {
-
 			public void mouseClicked(MouseEvent e) {
 				new FrameModifierCompte(user).getfrmModifierCompte().setVisible(true);
 				frmVisuCompte.dispose();
@@ -135,7 +137,9 @@ public class FrameVisuCompte {
 		});
 		panel_inscription.add(lien);
 	}
-	
+	/**
+	 * Pour mettre les info déjà existante dans les entrées
+	 */
 	private void passageEnVisu() {
 		listInput.get("pseudo").setText(user.getPseudo());
 		listInput.get("email").setText(user.getEmail());
