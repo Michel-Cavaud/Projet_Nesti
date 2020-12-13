@@ -25,7 +25,7 @@ public class Utilisateur {
 	private boolean connexion = false;
 	private  HashMap<String, Integer> listErreur = new HashMap<String, Integer>();
 	
-	//données de connexion à la base de données pour la table utilisateurs
+	//données de connexion à la base de données pour la table utilisateurs 
 	private RequetesSQL requetesSQL = new RequetesSQL("163.172.232.206", "michelnesti", "c2Lrdhn0OlO3NtQD", "nesti");
 
 	/**
